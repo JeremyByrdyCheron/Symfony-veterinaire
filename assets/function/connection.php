@@ -1,7 +1,7 @@
 <?php
 // include '../../.env';
 $host = 'db';
-$dbname = 'carnet_adresses';
+$dbname = 'veterinaire';
 $username = 'root';
 $password = '*%*a!@poX3kMQ0'; // Mot de passe vide par défaut sous Laragon
 

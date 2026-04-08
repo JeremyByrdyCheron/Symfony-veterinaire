@@ -1,6 +1,39 @@
 <?php
+include 'assets/function/connection.php';
+
+$date = date('Y-m-d H:i:s');
+
+$infoRequest = [];
+function clear($char)
+{
+    return htmlspecialchars(trim(strtolower($char)));
+}
+
+if (isset($_POST["pet"])) {
+    foreach ($_POST as $info) {
+        $infoRequest[] = clear($info);
+    }
+    // print_r($infoRequest);
+}
+$wantedDateCleaned = str_replace('T', ' ', $infoRequest[7]); // Remplace T par un espace
+$wantedDateCleaned = substr($wantedDateCleaned, 0, 10);
+$sql = "INSERT INTO request (type, email, animal, submittedDate, description, wantedDate, animalFolderId) 
+        VALUES (:type, :email, :animal, :submittedDate, :description, :wantedDate, 1)";
+
+if (isset($_POST['pet'])) {
+    $request = $pdo->prepare($sql);
+    $request->execute([
+        'type' => $infoRequest[5],
+        'email' => $infoRequest[2],
+        'animal' => $infoRequest[4],
+        'submittedDate' => $date,
+        'description' => $infoRequest[6],
+        'wantedDate' => $wantedDateCleaned
+    ]);
+}
+
 include "assets/utils/header.php"
-?>
+    ?>
 
 <form action="" method="post">
     <div>
@@ -33,7 +66,7 @@ include "assets/utils/header.php"
             <option value="others">Autres</option>
         </select>
     </div>
-        <div>
+    <div>
         <label for="reason">Motif de la visite : </label>
         <select name="reason" id="reason" required>
             <option value="">--Choisissez--</option>
@@ -60,4 +93,4 @@ include "assets/utils/header.php"
 
 <?php
 include "assets/utils/footer.php"
-?>
+    ?>
