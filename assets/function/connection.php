@@ -1,5 +1,4 @@
 <?php
-include '../../.env';
 $host = 'db';
 $dbname = 'carnet_adresses';
 $username = 'root';
