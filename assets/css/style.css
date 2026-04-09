@@ -4,8 +4,10 @@
 html {
   scroll-behavior: smooth;
 }
-p {
+p,ul,table {
   font-family: "Quicksand";
+  font-size: 18px;
+  color: #005b71;
 }
 ul {
   font-family: "Quicksand";
@@ -13,35 +15,38 @@ ul {
   padding: 0;
   margin: 0;
 }
-h1 {
-  font-family: "Montserrat Alternates";
-  font-weight: 650;
-}
 h2 {
   font-family: "Montserrat Alternates";
   font-weight: 550;
+  text-align: center;
+  margin-top: 10vh;
+  margin-bottom: 6vh;
+  font-size: 32px;
+  color: #005b71;
 }
 h3 {
   font-family: "Montserrat Alternates";
   font-weight: 450;
+  font-size: 20px;
+}
+table {
+  font-family: "Quicksand";
+  padding: 20px;
 }
 
 /* Nav */
 header {
   position: sticky;
   top: 0px;
-  /* Recommandé pour passer au-dessus du contenu */
   z-index: 1000;
 }
 nav {
   display: flex;
   background-color: #008ba2;
-  width: 100vw;
   justify-content: space-between;
 }
 nav ul {
   display: flex;
-  /* distance entre chaque section des pages */
   gap: 25px;
   align-items: center;
 }
@@ -53,13 +58,11 @@ li a {
   border-radius: 50px;
   font-family: "Quicksand";
 }
-/* au passage de la souris sur les sections */
 li a:hover {
   border-radius: 50px;
   border: 1.5px solid #fff;
   transition: 0.2s;
 }
-/* pour décoller le dernier élèment ul du bord */
 ul:last-child {
   padding-right: 30px;
 }
@@ -71,6 +74,7 @@ nav img {
 /* Footer */
 footer h2 {
   text-align: center;
+  color: #fff;
 }
 footer {
   background-color: #008ba2;
@@ -89,11 +93,13 @@ footer {
   margin-top: 32px;
 }
 .contacts p {
-  margin-left: -100px;
+  margin-left: -80px;
+  color: #fff;
 }
 #copyright {
   font-size: 11px;
   display: flex;
   justify-content: center;
   text-decoration: none;
+  color: #fff;
 }
