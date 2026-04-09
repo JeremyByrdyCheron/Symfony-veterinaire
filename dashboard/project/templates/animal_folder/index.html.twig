@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}AnimalFolder index
-{% endblock %}
+{% block title %}Liste des dossiers{% endblock %}
 
 {% block body %}
 	{% include "navbar/navbar.html.twig" %}
@@ -11,34 +10,32 @@
 	<table class="table">
 		<thead>
 			<tr>
-				<th>Id</th>
-				<th>Name</th>
+				<th>Nom</th>
 				<th>Animal</th>
-				<th>Age</th>
-				<th>InscriptionDate</th>
-				<th>actions</th>
+				<th>Âge</th>
+				<th>Date d'inscription</th>
+				<th>Actions</th>
 			</tr>
 		</thead>
 		<tbody>
 			{% for animal_folder in animal_folders %}
 				<tr>
-					<td>{{ animal_folder.id }}</td>
 					<td>{{ animal_folder.name }}</td>
 					<td>{{ animal_folder.animal }}</td>
 					<td>{{ animal_folder.age }}</td>
 					<td>{{ animal_folder.inscriptionDate ? animal_folder.inscriptionDate|date('Y-m-d') : '' }}</td>
 					<td>
-						<a href="{{ path('app_animal_folder_show', {'id': animal_folder.id}) }}">show</a>
-						<a href="{{ path('app_animal_folder_edit', {'id': animal_folder.id}) }}">edit</a>
+						<a href="{{ path('app_animal_folder_show', {'id': animal_folder.id}) }}">Voir</a>
+						<a href="{{ path('app_animal_folder_edit', {'id': animal_folder.id}) }}">Modifier</a>
 					</td>
 				</tr>
 			{% else %}
 				<tr>
-					<td colspan="5">no records found</td>
+					<td colspan="5">Pas d'animaux enregistrés</td>
 				</tr>
 			{% endfor %}
 		</tbody>
 	</table>
 
-	<a href="{{ path('app_animal_folder_new') }}">Create new</a>
+	<a href="{{ path('app_animal_folder_new') }}">Créer un nouveau dossier</a>
 {% endblock %}

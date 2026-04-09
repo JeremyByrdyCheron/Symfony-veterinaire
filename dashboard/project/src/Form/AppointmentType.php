@@ -18,19 +18,38 @@ class AppointmentType extends AbstractType
     {
         $builder
             ->add('type', EnumType::class, ['class' => Type::class])
-            ->add('email')
-            ->add('animal')
-            ->add('status')
-            ->add('description')
-            ->add('wantedDate')
-            ->add('lastname')
-            ->add('firstname')
-            ->add('phoneNumber')
+            ->add('email', null, [
+                'label' => 'Email',
+            ])
+            ->add('animal', null, [
+                'label' => 'Animal',
+            ])
+            ->add('status', null, [
+                'label' => 'Statut',
+            ])
+            ->add('description', null, [
+                'label' => 'Description',
+            ])
+            ->add('wantedDate', null, [
+                'label' => 'Date souhaitée',
+                'widget' => 'single_text',
+            ])
+            ->add('lastname', null, [
+                'label' => 'Nom de famille',
+            ])
+            ->add('firstname', null, [
+                'label' => 'Prénom',
+            ])
+            ->add('phoneNumber', null, [
+                'label' => 'Numéro de téléphone',
+            ])
             ->add('animalFolderId', EntityType::class, [
+                'label' => 'Dossier Animal',
                 'class' => AnimalFolder::class,
                 'choice_label' => 'name',
             ])
             ->add('veterinaryId', EntityType::class, [
+                'label' => 'Vétérinaire',
                 'class' => User::class,
                 'choice_label' => function (User $user) {
                     return $user->getFirstname() . ' ' . $user->getName();

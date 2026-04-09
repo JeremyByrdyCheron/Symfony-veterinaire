@@ -31,6 +31,35 @@ class Document
     #[ORM\Column(length: 255)]
     private ?string $token = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $ownerEmail = null;
+
+    public function getOwnerEmail(): ?string
+    {
+        return $this->ownerEmail;
+    }
+
+    public function setOwnerEmail(string $ownerEmail): static
+    {
+        $this->ownerEmail = $ownerEmail;
+        return $this;
+    }
+
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?Appointment $appointmentId = null;
+
+    public function getAppointmentId(): ?Appointment
+    {
+        return $this->appointmentId;
+    }
+
+    public function setAppointmentId(?Appointment $appointmentId): static
+    {
+        $this->appointmentId = $appointmentId;
+        return $this;
+    }
+
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
     private ?AnimalFolder $animalId = null;
@@ -116,7 +145,7 @@ class Document
     }
     public function __construct()
     {
-        $this->token = uniqid("", true);
+        $this->token = (string) random_int(100000, 999999);
         $this->url = uniqid("");
     }
 }

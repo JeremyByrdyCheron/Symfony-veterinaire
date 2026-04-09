@@ -1,27 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}AnimalFolder
+{% block title %}Dossier
 {% endblock %}
 
 {% block body %}
-	<h1>AnimalFolder</h1>
+	<h1>Dossier</h1>
 
 	<table class="table">
 		<tbody>
 			<tr>
-				<th>Id</th>
-				<td>{{ animal_folder.id }}</td>
-			</tr>
-			<tr>
-				<th>Name</th>
+				<th>Nom</th>
 				<td>{{ animal_folder.name }}</td>
 			</tr>
 			<tr>
-				<th>Age</th>
+				<th>Âge</th>
 				<td>{{ animal_folder.age }}</td>
 			</tr>
 			<tr>
-				<th>InscriptionDate</th>
+				<th>Date d'inscription</th>
 				<td>{{ animal_folder.inscriptionDate ? animal_folder.inscriptionDate|date('Y-m-d') : '' }}</td>
 			</tr>
 			<tr>
@@ -33,9 +29,9 @@
 		</tbody>
 	</table>
 
-	<a href="{{ path('app_animal_folder_index') }}">back to list</a>
+	<a href="{{ path('app_animal_folder_index') }}">Retour à la liste</a>
 
-	<a href="{{ path('app_animal_folder_edit', {'id': animal_folder.id}) }}">edit</a>
+	<a href="{{ path('app_animal_folder_edit', {'id': animal_folder.id}) }}">Modifier</a>
 
 	{{ include('animal_folder/_delete_form.html.twig') }}
 {% endblock %}

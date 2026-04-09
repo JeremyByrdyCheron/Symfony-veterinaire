@@ -1,17 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Document index
-{% endblock %}
+{% block title %}Liste des Documents{% endblock %}
 
 {% block body %}
-	<h1>Document index</h1>
+	<h1>Liste des Documents</h1>
 	{% include "navbar/navbar.html.twig" %}
 	<table class="table">
 		<thead>
 			<tr>
 				<th>Pdf</th>
-				<th>UpdatedAt</th>
-				<th>actions</th>
+				<th>Modifié le </th>
+				<th>Actions</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -24,17 +23,17 @@
 					</td>
 					<td>{{ document.updatedAt ? document.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
 					<td>
-						<a href="{{ path('app_document_show', {'id': document.id}) }}">show</a>
-						<a href="{{ path('app_document_edit', {'id': document.id}) }}">edit</a>
+						<a href="{{ path('app_document_show', {'id': document.id}) }}">Voir</a>
+						<a href="{{ path('app_document_edit', {'id': document.id}) }}">Modifier</a>
 					</td>
 				</tr>
 			{% else %}
 				<tr>
-					<td colspan="5">no records found</td>
+					<td colspan="5">Pas de documents trouvés</td>
 				</tr>
 			{% endfor %}
 		</tbody>
 	</table>
 
-	<a href="{{ path('app_document_new') }}">Create new</a>
+	<a href="{{ path('app_document_new') }}">Créer un nouveau document</a>
 {% endblock %}

@@ -1,35 +1,32 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Appointment index
-{% endblock %}
+{% block title %} Liste des rendez-vous{% endblock %}
 
 {% block body %}
 	{% include "navbar/navbar.html.twig" %}
 
-	<h1>Appointment index</h1>
+	<h1>Liste des rendez-vous</h1>
 
 	<table class="table">
 		<thead>
 			<tr>
-				<th>Id</th>
 				<th>Type</th>
 				<th>Email</th>
 				<th>Animal</th>
-				<th>Status</th>
-				<th>SubmittedDate</th>
+				<th>Statut</th>
+				<th>Date de la demande</th>
 				<th>Description</th>
-				<th>WantedDate</th>
-				<th>Lastname</th>
-				<th>Firstname</th>
-				<th>PhoneNumber</th>
-				<th>actions</th>
+				<th>Date souhaitée</th>
+				<th>Nom de famille</th>
+				<th>Prénom</th>
+				<th>Numéro de téléphone</th>
+				<th>Actions</th>
 			</tr>
 		</thead>
 		<tbody>
 			{% for appointment in appointments %}
 				{% dump(appointment) %}
 				<tr>
-					<td>{{ appointment.id }}</td>
 					<td>{{ appointment.type.name }}</td>
 					<td>{{ appointment.email }}</td>
 					<td>{{ appointment.animal }}</td>
@@ -41,17 +38,17 @@
 					<td>{{ appointment.firstname }}</td>
 					<td>{{ appointment.phoneNumber }}</td>
 					<td>
-						<a href="{{ path('app_appointment_show', {'id': appointment.id}) }}">show</a>
-						<a href="{{ path('app_appointment_edit', {'id': appointment.id}) }}">edit</a>
+						<a href="{{ path('app_appointment_show', {'id': appointment.id}) }}">Voir</a>
+						<a href="{{ path('app_appointment_edit', {'id': appointment.id}) }}">Modifier</a>
 					</td>
 				</tr>
 			{% else %}
 				<tr>
-					<td colspan="12">no records found</td>
+					<td colspan="12">Pas de rendez-vous trouvés</td>
 				</tr>
 			{% endfor %}
 		</tbody>
 	</table>
 
-	<a href="{{ path('app_appointment_new') }}">Create new</a>
+	<a href="{{ path('app_appointment_new') }}">Créer un nouveau rendez-vous</a>
 {% endblock %}

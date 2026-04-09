@@ -3,6 +3,8 @@
 namespace App\Service;
 
 use App\Entity\Appointment;
+use App\Entity\Document;
+use App\Entity\AnimalFolder;
 use App\Entity\Request;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
@@ -13,8 +15,7 @@ class MailService
     public function __construct(
         private MailerInterface $mailer,
         private Environment $twig,
-    ) {
-    }
+    ) {}
 
     public function sendRequestStatusMail(Appointment $appointment, ?\DateTime $newDate = null): void
     {
@@ -36,6 +37,25 @@ class MailService
             ->from('veterinaire@cabinet.fr')
             ->to($appointment->getEmail())
             ->subject($subject)
+            ->html($html);
+
+        $this->mailer->send($email);
+    }
+
+    public function sendDocumentMail(Document $document): void
+    {
+        $animalFolder = $document->getAnimalId();
+
+        $html = $this->twig->render('emails/document_ready.html.twig', [
+            'document' => $document,
+            'token'    => $document->getToken(),
+            'url'      => $document->getUrl(),
+        ]);
+
+        $email = (new Email())
+            ->from('veterinaire@cabinet.fr')
+            ->to($document->getOwnerEmail())
+            ->subject('📄 Un document est disponible pour ' . $animalFolder->getName())
             ->html($html);
 
         $this->mailer->send($email);
