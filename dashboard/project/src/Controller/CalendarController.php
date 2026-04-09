@@ -17,13 +17,11 @@ class CalendarController extends AbstractController
         /** @var User $user */
         $user = $this->getUser();
 
-        // On récupère uniquement les RDV assignés à ce véto
         $appointments = $appointmentRepository->findBy([
             'veterinaryId' => $user,
             'status' => Status::ACCEPTED,
         ]);
 
-        // On formate les RDV pour le calendrier en JSON
         $events = [];
         foreach ($appointments as $appointment) {
             $events[] = [
