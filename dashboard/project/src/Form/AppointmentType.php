@@ -28,11 +28,13 @@ class AppointmentType extends AbstractType
             ->add('phoneNumber')
             ->add('animalFolderId', EntityType::class, [
                 'class' => AnimalFolder::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
             ])
             ->add('veterinaryId', EntityType::class, [
                 'class' => User::class,
-                'choice_label' => 'id',
+                'choice_label' => function (User $user) {
+                    return $user->getFirstname() . ' ' . $user->getName();
+                },
             ])
         ;
     }
