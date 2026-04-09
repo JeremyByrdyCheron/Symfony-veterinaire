@@ -1,0 +1,96 @@
+* {
+  margin: 0;
+}
+html {
+  scroll-behavior: smooth;
+}
+p {
+  font-family: "Quicksand";
+}
+ul {
+  font-family: "Quicksand";
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+h1 {
+  font-family: "Montserrat Alternates";
+  font-weight: 650;
+}
+h2 {
+  font-family: "Montserrat Alternates";
+  font-weight: 550;
+}
+h3 {
+  font-family: "Montserrat Alternates";
+  font-weight: 450;
+}
+
+/* Nav */
+nav {
+  display: flex;
+  background-color: #008ba2;
+  position: fixed;
+  /* Recommandé pour passer au-dessus du contenu */
+  z-index: 1000;
+  width: 100vw;
+  justify-content: space-between;
+}
+nav ul {
+  display: flex;
+  /* distance entre chaque section des pages */
+  gap: 25px;
+  align-items: center;
+}
+li a {
+  text-decoration: none;
+  color: #fff;
+  font-size: 18px;
+  padding: 10px;
+  border-radius: 50px;
+  font-family: "Quicksand";
+}
+/* au passage de la souris sur les sections */
+li a:hover {
+  border-radius: 50px;
+  border: 1.5px solid #fff;
+  transition: 0.2s;
+}
+/* pour décoller le dernier élèment ul du bord */
+ul:last-child {
+  padding-right: 30px;
+}
+nav img {
+  width: 150px;
+  height: auto;
+}
+
+/* Footer */
+footer h2 {
+  text-align: center;
+}
+footer {
+  background-color: #008ba2;
+  padding: 20px 50px;
+  color: #fff;
+}
+.picto {
+    width: 32px;
+    height: 32px;
+}
+.contacts {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-bottom: 32px;
+  margin-top: 32px;
+}
+.contacts p {
+    margin-left: -100px;
+}
+#copyright {
+  font-size: 11px;
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+}
