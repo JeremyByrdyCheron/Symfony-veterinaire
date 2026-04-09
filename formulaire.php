@@ -3,17 +3,18 @@ include 'assets/function/connection.php';
 
 $dateNow = date('Y-m-d H:i:s');
 
-function clear($data) {
+function clear($data)
+{
     return htmlspecialchars(trim($data));
 }
 
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["pet"])) {
-    
-    $email       = clear($_POST['email']);
-    $animal      = clear($_POST['pet']);
-    $type        = clear($_POST['reason']);
+
+    $email = clear($_POST['email']);
+    $animal = clear($_POST['pet']);
+    $type = clear($_POST['reason']);
     $description = clear($_POST['info']);
-    $wantedDate  = $_POST['dateTime'];
+    $wantedDate = $_POST['dateTime'];
 
     $wantedDateCleaned = substr(str_replace('T', ' ', $wantedDate), 0, 10);
 
@@ -23,12 +24,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["pet"])) {
     try {
         $request = $pdo->prepare($sql);
         $request->execute([
-            'type'          => $type,
-            'email'         => $email,
-            'animal'        => $animal,
+            'type' => $type,
+            'email' => $email,
+            'animal' => $animal,
             'submittedDate' => $dateNow,
-            'description'   => $description,
-            'wantedDate'    => $wantedDateCleaned
+            'description' => $description,
+            'wantedDate' => $wantedDateCleaned
         ]);
         $success = "Votre demande a bien été envoyée !";
     } catch (PDOException $e) {
@@ -39,8 +40,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["pet"])) {
 include "assets/utils/header.php";
 ?>
 
-<?php if(isset($success)) echo "<p style='color:green'>$success</p>"; ?>
-<?php if(isset($error)) echo "<p style='color:red'>$error</p>"; ?>
+<?php if (isset($success))
+    echo "<p style='color:green'>$success</p>"; ?>
+<?php if (isset($error))
+    echo "<p style='color:red'>$error</p>"; ?>
 
 <form action="" method="post">
     <div>
@@ -93,9 +96,21 @@ include "assets/utils/header.php";
     </div>
     <div>
         <label for="dateTime">Date et Heure : </label>
+        <input id="timeInput" type="time" min="09:00" max="18:00" step="3600">
         <input type="datetime-local" id="dateTime" name="dateTime" required />
     </div>
     <button type="submit">Envoyer</button>
+    <script>
+        const input = document.getElementById("dateTime");
+        input.addEventListener("input", () => {
+            console.log()
+            if (input.value < "09:00") {
+                input.value = "09:00";
+            }else if(input.value > "18:00"){
+                input.value = "18:00"
+            }
+        });
+    </script>
 </form>
 
 <?php include "assets/utils/footer.php"; ?>
