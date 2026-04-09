@@ -1,13 +1,16 @@
 <?php
+
+function clear($char){
+    return htmlspecialchars(trim($char));
+}
+
 include 'assets/function/connection.php';
-$sql = 'SELECT token FROM document WHERE token=:code';
+$sql = 'SELECT token FROM document WHERE token='.$_POST('code').'';
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     try {
         $request = $pdo->prepare($sql);
-        $request->execute([
-            'code' => $_POST('code')
-        ]);
+        $request->execute();
     } catch (PDOException $e) {
         $error = "Erreur lors de l'envoi : " . $e->getMessage();
         die();
