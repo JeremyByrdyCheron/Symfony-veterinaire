@@ -4,12 +4,13 @@ namespace App\Entity;
 
 use App\Enum\Status;
 use App\Enum\Type;
-use App\Repository\RequestRepository;
+use App\Repository\AppointmentRepository;
+use DateTime;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: RequestRepository::class)]
-class Request
+#[ORM\Entity(repositoryClass: AppointmentRepository::class)]
+class Appointment
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -38,8 +39,20 @@ class Request
     private ?\DateTime $wantedDate = null;
 
     #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?AnimalFolder $animalFolderId = null;
+
+    #[ORM\ManyToOne(inversedBy: 'requests')]
+    private ?User $veterinaryId = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $lastname = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $firstname = null;
+
+    #[ORM\Column]
+    private ?int $phoneNumber = null;
 
     public function getId(): ?int
     {
@@ -140,5 +153,57 @@ class Request
         $this->animalFolderId = $animalFolderId;
 
         return $this;
+    }
+
+    public function getVeterinaryId(): ?User
+    {
+        return $this->veterinaryId;
+    }
+
+    public function setVeterinaryId(?User $veterinaryId): static
+    {
+        $this->veterinaryId = $veterinaryId;
+
+        return $this;
+    }
+
+    public function getLastname(): ?string
+    {
+        return $this->lastname;
+    }
+
+    public function setLastname(string $lastname): static
+    {
+        $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    public function getFirstname(): ?string
+    {
+        return $this->firstname;
+    }
+
+    public function setFirstname(string $firstname): static
+    {
+        $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    public function getPhoneNumber(): ?int
+    {
+        return $this->phoneNumber;
+    }
+
+    public function setPhoneNumber(int $phoneNumber): static
+    {
+        $this->phoneNumber = $phoneNumber;
+
+        return $this;
+    }
+    public function __construct()
+    {
+        $this->submittedDate = new DateTime();
     }
 }

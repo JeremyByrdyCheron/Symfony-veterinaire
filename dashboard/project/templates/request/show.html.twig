@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Request{% endblock %}
+
+{% block body %}
+    <h1>Request</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ request.id }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ request.type }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ request.email }}</td>
+            </tr>
+            <tr>
+                <th>Animal</th>
+                <td>{{ request.animal }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ request.status }}</td>
+            </tr>
+            <tr>
+                <th>SubmittedDate</th>
+                <td>{{ request.submittedDate ? request.submittedDate|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ request.description }}</td>
+            </tr>
+            <tr>
+                <th>WantedDate</th>
+                <td>{{ request.wantedDate ? request.wantedDate|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Lastname</th>
+                <td>{{ request.lastname }}</td>
+            </tr>
+            <tr>
+                <th>Firstname</th>
+                <td>{{ request.firstname }}</td>
+            </tr>
+            <tr>
+                <th>PhoneNumber</th>
+                <td>{{ request.phoneNumber }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_request_index') }}">back to list</a>
+
+    <a href="{{ path('app_request_edit', {'id': request.id}) }}">edit</a>
+
+    {{ include('request/_delete_form.html.twig') }}
+{% endblock %}

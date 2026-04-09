@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Appointment index
+{% endblock %}
+
+{% block body %}
+	<h1>Appointment index</h1>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Type</th>
+				<th>Email</th>
+				<th>Animal</th>
+				<th>Status</th>
+				<th>SubmittedDate</th>
+				<th>Description</th>
+				<th>WantedDate</th>
+				<th>Lastname</th>
+				<th>Firstname</th>
+				<th>PhoneNumber</th>
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for appointment in appointments %}
+				{% dump(appointment) %}
+				<tr>
+					<td>{{ appointment.id }}</td>
+					<td>{{ appointment.type.name }}</td>
+					<td>{{ appointment.email }}</td>
+					<td>{{ appointment.animal }}</td>
+					<td>{{ appointment.status.name }}</td>
+					<td>{{ appointment.submittedDate ? appointment.submittedDate|date('Y-m-d') : '' }}</td>
+					<td>{{ appointment.description }}</td>
+					<td>{{ appointment.wantedDate ? appointment.wantedDate|date('Y-m-d') : '' }}</td>
+					<td>{{ appointment.lastname }}</td>
+					<td>{{ appointment.firstname }}</td>
+					<td>{{ appointment.phoneNumber }}</td>
+					<td>
+						<a href="{{ path('app_appointment_show', {'id': appointment.id}) }}">show</a>
+						<a href="{{ path('app_appointment_edit', {'id': appointment.id}) }}">edit</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="12">no records found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	<a href="{{ path('app_appointment_new') }}">Create new</a>
+{% endblock %}

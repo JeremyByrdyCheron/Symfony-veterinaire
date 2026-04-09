@@ -3,9 +3,12 @@
 namespace App\Entity;
 
 use App\Repository\DocumentRepository;
+use DateTime;
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+
 
 #[ORM\Entity(repositoryClass: DocumentRepository::class)]
 #[Vich\Uploadable]
@@ -58,7 +61,7 @@ class Document
         $this->pdfFile = $pdfFile;
 
         if ($pdfFile) {
-            $this->updatedAt = new \DateTimeImmutable();
+            $this->updatedAt = new \DateTime();
         }
     }
 
@@ -95,5 +98,10 @@ class Document
         $this->animalId = $animalId;
 
         return $this;
+    }
+
+    public function __construct()
+    {
+        $this->token = uniqid("", true);
     }
 }

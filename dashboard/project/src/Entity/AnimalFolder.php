@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\AnimalFolderRepository;
+use DateTime;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -26,6 +27,9 @@ class AnimalFolder
     #[ORM\ManyToOne(inversedBy: 'animalFolders')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $veterinaryId = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $animal = null;
 
     public function getId(): ?int
     {
@@ -76,6 +80,22 @@ class AnimalFolder
     public function setVeterinaryId(?User $veterinaryId): static
     {
         $this->veterinaryId = $veterinaryId;
+
+        return $this;
+    }
+    public function __construct()
+    {
+        $this->inscriptionDate = new DateTime();
+    }
+
+    public function getAnimal(): ?string
+    {
+        return $this->animal;
+    }
+
+    public function setAnimal(string $animal): static
+    {
+        $this->animal = $animal;
 
         return $this;
     }
