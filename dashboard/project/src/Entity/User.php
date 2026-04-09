@@ -7,9 +7,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -22,7 +24,7 @@ class User
     #[ORM\Column(length: 255)]
     private ?string $firstname = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, unique: true)]
     private ?string $email = null;
 
     #[ORM\Column(length: 255)]
@@ -33,6 +35,19 @@ class User
 
     #[ORM\Column(length: 255)]
     private ?string $address = null;
+
+    #[ORM\Column(type: 'json')]
+    private array $roles = [];
+
+    #[ORM\Column(length: 20)]
+    private string $status = 'pending';
+
+    public const STATUS_PENDING = 'pending';
+    public const STATUS_APPROVED = 'approved';
+    public const STATUS_REJECTED = 'rejected';
+
+    #[ORM\Column(length: 50, nullable: false)]
+    private ?string $licenseNumber = null;
 
     /**
      * @var Collection<int, AnimalFolder>
@@ -45,8 +60,6 @@ class User
         $this->animalFolders = new ArrayCollection();
     }
 
-    #[ORM\Column]
-
     public function getId(): ?int
     {
         return $this->id;
@@ -56,11 +69,9 @@ class User
     {
         return $this->name;
     }
-
     public function setName(string $name): static
     {
         $this->name = $name;
-
         return $this;
     }
 
@@ -68,11 +79,9 @@ class User
     {
         return $this->firstname;
     }
-
     public function setFirstname(string $firstname): static
     {
         $this->firstname = $firstname;
-
         return $this;
     }
 
@@ -80,11 +89,9 @@ class User
     {
         return $this->email;
     }
-
     public function setEmail(string $email): static
     {
         $this->email = $email;
-
         return $this;
     }
 
@@ -92,11 +99,9 @@ class User
     {
         return $this->password;
     }
-
     public function setPassword(string $password): static
     {
         $this->password = $password;
-
         return $this;
     }
 
@@ -104,11 +109,9 @@ class User
     {
         return $this->phoneNumber;
     }
-
     public function setPhoneNumber(string $phoneNumber): static
     {
         $this->phoneNumber = $phoneNumber;
-
         return $this;
     }
 
@@ -116,17 +119,54 @@ class User
     {
         return $this->address;
     }
-
     public function setAddress(string $address): static
     {
         $this->address = $address;
-
         return $this;
     }
 
-    /**
-     * @return Collection<int, AnimalFolder>
-     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        $roles[] = 'ROLE_USER';
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): static
+    {
+        $this->roles = $roles;
+        return $this;
+    }
+
+    public function getStatus(): string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): static
+    {
+        $this->status = $status;
+        return $this;
+    }
+    
+    public function getLicenseNumber(): string
+    {
+        return $this->licenseNumber ?? '';
+    }
+
+    public function setLicenseNumber(string $licenseNumber): static
+    {
+        $this->licenseNumber = $licenseNumber;
+        return $this;
+    }
+
+    // Méthodes requises par UserInterface
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
+    }
+    public function eraseCredentials(): void {}
+
     public function getAnimalFolders(): Collection
     {
         return $this->animalFolders;
@@ -138,21 +178,16 @@ class User
             $this->animalFolders->add($animalFolder);
             $animalFolder->setVeterinaryId($this);
         }
-
         return $this;
     }
 
     public function removeAnimalFolder(AnimalFolder $animalFolder): static
     {
         if ($this->animalFolders->removeElement($animalFolder)) {
-            // set the owning side to null (unless already changed)
             if ($animalFolder->getVeterinaryId() === $this) {
                 $animalFolder->setVeterinaryId(null);
             }
         }
-
         return $this;
     }
-
-
 }

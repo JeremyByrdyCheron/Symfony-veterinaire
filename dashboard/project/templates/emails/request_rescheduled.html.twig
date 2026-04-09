@@ -1,0 +1,7 @@
+<h2>Nouveau créneau proposé 📅</h2>
+<p>Bonjour,</p>
+<p>Votre rendez-vous pour <strong>{{ request.animal }}</strong> a été décalé.</p>
+{% if newDate %}
+    <p>Le vétérinaire vous propose le : <strong>{{ newDate|date('d/m/Y') }}</strong></p>
+{% endif %}
+<p>Contactez-nous si ce créneau ne vous convient pas.</p>

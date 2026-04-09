@@ -1,9 +1,11 @@
 <?php
+
 namespace App\Enum;
 
 enum Status: string
 {
-    case AWAITING = 'awaiting';
-    case VALIDATE = 'validate';
-    case REFUSE = 'refuse';
+    case PENDING     = 'pending';
+    case ACCEPTED    = 'accepted';
+    case RESCHEDULED = 'rescheduled';
+    case REFUSED     = 'refused';
 }
