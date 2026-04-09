@@ -7,7 +7,12 @@ include 'assets/utils/header.php';
         <h1>VetCare</h1>
         <p>Pour leur bien-être, on a le savoir-faire</p>
     </section>
-    <!-- 2) carroussel en css avec 4 cards pour les services -->
+    <!-- 2) Présentation institutionnelle du professionnel / de l’organisation -->
+     <section>
+        <h2>Notre cabinet en quelques mots...</h2>
+        <p>VetCare est un cabinet vétérinaire dédié au bien-être et à la santé de vos animaux de compagnie. Grâce à une équipe attentive et passionnée, il propose une large gamme de soins adaptés, allant de la prévention aux traitements spécialisés. Le cabinet se distingue par la qualité de son accompagnement et son approche personnalisée. Moderne et bien équipé, VetCare met tout en œuvre pour offrir des services fiables et efficaces. Un lieu de confiance où chaque animal est accueilli avec douceur et professionnalisme.</p>
+     </section>
+    <!-- 3) carroussel en css avec 4 cards pour les services -->
     <section>
         <h2>Nos services</h2>
         <div>
@@ -46,7 +51,7 @@ include 'assets/utils/header.php';
             <img src="assets/img/img_icn.jpg" alt="">
         </div>
     </section>
-    <!-- 3) Tableau horaires centré -->
+    <!-- 4) Tableau horaires centré -->
     <h2>Nos horaires de visite</h2>
     <table>
         <tr>
@@ -78,7 +83,7 @@ include 'assets/utils/header.php';
             <td>Fermé</td>
         </tr>
     </table>
-    <!-- 4) Atouts les uns en dessous des autres avec image d'un côté et txt de l'autre -->
+    <!-- 5) Atouts les uns en dessous des autres avec image d'un côté et txt de l'autre -->
     <h2>Nos atouts et spécificités</h2>
     <section>
         <div>
@@ -109,7 +114,7 @@ include 'assets/utils/header.php';
         </div>
     </section>
 
-    <!-- 5) Présentation de l'équipe (6 veto) avec img en rond et nom + spécialité en dessous -->
+    <!-- 6) Présentation de l'équipe (6 veto) avec img en rond et nom + spécialité en dessous -->
     <section>
         <h2>Notre équipe</h2>
         <div>
