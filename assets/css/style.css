@@ -27,12 +27,15 @@ h3 {
 }
 
 /* Nav */
+header {
+  position: sticky;
+  top: 0px;
+  /* Recommandé pour passer au-dessus du contenu */
+  z-index: 1000;
+}
 nav {
   display: flex;
   background-color: #008ba2;
-  position: fixed;
-  /* Recommandé pour passer au-dessus du contenu */
-  z-index: 1000;
   width: 100vw;
   justify-content: space-between;
 }
@@ -75,8 +78,8 @@ footer {
   color: #fff;
 }
 .picto {
-    width: 32px;
-    height: 32px;
+  width: 32px;
+  height: 32px;
 }
 .contacts {
   display: flex;
@@ -86,7 +89,7 @@ footer {
   margin-top: 32px;
 }
 .contacts p {
-    margin-left: -100px;
+  margin-left: -100px;
 }
 #copyright {
   font-size: 11px;
