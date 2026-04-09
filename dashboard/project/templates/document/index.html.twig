@@ -4,7 +4,6 @@
 
 {% block body %}
 	<h1>Liste des Documents</h1>
-	{% include "navbar/navbar.html.twig" %}
 	<table class="table">
 		<thead>
 			<tr>
@@ -35,5 +34,5 @@
 		</tbody>
 	</table>
 
-	<a href="{{ path('app_document_new') }}">Créer un nouveau document</a>
+	<a class="btn" href="{{ path('app_document_new') }}">Créer un nouveau document</a>
 {% endblock %}

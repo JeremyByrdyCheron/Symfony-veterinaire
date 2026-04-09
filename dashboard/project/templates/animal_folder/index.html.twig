@@ -3,7 +3,6 @@
 {% block title %}Liste des dossiers{% endblock %}
 
 {% block body %}
-	{% include "navbar/navbar.html.twig" %}
 
 	<h1>Liste des dossiers</h1>
 
@@ -37,5 +36,5 @@
 		</tbody>
 	</table>
 
-	<a href="{{ path('app_animal_folder_new') }}">Créer un nouveau dossier</a>
+	<a class="btn" href="{{ path('app_animal_folder_new') }}">Créer un nouveau dossier</a>
 {% endblock %}

@@ -3,7 +3,6 @@
 {% block title %} Liste des rendez-vous{% endblock %}
 
 {% block body %}
-	{% include "navbar/navbar.html.twig" %}
 
 	<h1>Liste des rendez-vous</h1>
 
@@ -50,5 +49,9 @@
 		</tbody>
 	</table>
 
-	<a href="{{ path('app_appointment_new') }}">Créer un nouveau rendez-vous</a>
+	<a class="btn" href="{{ path('app_appointment_new') }}">Créer un nouveau rendez-vous</a>
+
+	<a class="btn" href="{{ path('app_notifications') }}">Demandes de rendez-vous</a>
+
+	<a class="btn" href="{{ path('app_calendar') }}">Votre calendrier de rendez-vous</a>
 {% endblock %}

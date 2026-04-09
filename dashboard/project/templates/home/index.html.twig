@@ -5,7 +5,6 @@
 
 {% block body %}
 
-	{% include "navbar/navbar.html.twig" %}
 	<h1>Accueil</h1>
 
 	{% if user %}
@@ -13,7 +12,7 @@
 			{{ user.firstname }}
 			!</p>
 		<p>
-			<a href="{{ path('app_logout') }}">Se déconnecter</a>
+			<a class="btn" href="{{ path('app_logout') }}">Se déconnecter</a>
 		</p>
 
 
@@ -88,6 +87,7 @@
 			{% endfor %}
 
 		</table>
+		<a class="btn" href="{{ path('app_calendar') }}">Votre calendrier de rendez-vous</a>
 	{% else %}
 		<p>Vous n'êtes pas connecté.</p>
 		<p>

@@ -4,7 +4,6 @@
 {% endblock %}
 
 {% block body %}
-	{% include "navbar/navbar.html.twig" %}
 
 	<h1>Mon profil</h1>
 
@@ -35,7 +34,7 @@
 		<p>{{ message }}</p>
 	{% endfor %}
 
-	<a href="{{ path('profile-edit') }}">Modifier mon profil</a>
+	<a class="btn" href="{{ path('profile-edit') }}">Modifier mon profil</a>
 
 	<form method="post" action="{{ path('profile-delete') }}">
 		<input type="hidden" name="_token" value="{{ csrf_token('delete_account') }}">

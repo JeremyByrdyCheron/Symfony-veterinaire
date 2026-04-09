@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Appointment;
+use App\Enum\Status;
 use App\Form\AppointmentType;
 use App\Repository\AppointmentRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -30,6 +31,15 @@ final class AppointmentController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @var \App\Entity\User $user */
+            $user = $this->getUser();
+
+            $appointment->setStatus(Status::PENDING);
+            $appointment->setVeterinaryId($user);
+            $appointment->setAnimal(
+                $appointment->getAnimalFolderId()?->getAnimal() ?? 'Inconnu'
+            );
+
             $entityManager->persist($appointment);
             $entityManager->flush();
 
@@ -38,7 +48,7 @@ final class AppointmentController extends AbstractController
 
         return $this->render('appointment/new.html.twig', [
             'appointment' => $appointment,
-            'form' => $form,
+            'form'        => $form,
         ]);
     }
 
@@ -57,6 +67,10 @@ final class AppointmentController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $appointment->setAnimal(
+                $appointment->getAnimalFolderId()?->getAnimal() ?? 'Inconnu'
+            );
+
             $entityManager->flush();
 
             return $this->redirectToRoute('app_appointment_index', [], Response::HTTP_SEE_OTHER);
@@ -64,14 +78,14 @@ final class AppointmentController extends AbstractController
 
         return $this->render('appointment/edit.html.twig', [
             'appointment' => $appointment,
-            'form' => $form,
+            'form'        => $form,
         ]);
     }
 
     #[Route('/{id}', name: 'app_appointment_delete', methods: ['POST'])]
     public function delete(Request $request, Appointment $appointment, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$appointment->getId(), $request->getPayload()->getString('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $appointment->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($appointment);
             $entityManager->flush();
         }
