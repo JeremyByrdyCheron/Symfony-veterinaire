@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Appointment;
 use App\Entity\Request;
 use App\Enum\Status;
+use App\Repository\AppointmentRepository;
 use App\Repository\RequestRepository;
 use App\Service\MailService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -16,9 +18,9 @@ use Symfony\Component\Routing\Attribute\Route;
 class NotificationController extends AbstractController
 {
     #[Route('', name: 'app_notifications')]
-    public function index(RequestRepository $requestRepository): Response
+    public function index(AppointmentRepository $appointmentRepository): Response
     {
-        $requests = $requestRepository->findBy(['status' => Status::PENDING]);
+        $requests = $appointmentRepository->findBy(['status' => Status::PENDING]);
 
         return $this->render('notifications/index.html.twig', [
             'requests' => $requests,
@@ -27,13 +29,13 @@ class NotificationController extends AbstractController
 
     #[Route('/{id}/accept', name: 'app_notification_accept', methods: ['POST'])]
     public function accept(
-        Request $request,
+        Appointment $appointment,
         EntityManagerInterface $em,
         MailService $mailService
     ): Response {
-        $request->setStatus(Status::ACCEPTED);
+        $appointment->setStatus(Status::ACCEPTED);
         $em->flush();
-        $mailService->sendRequestStatusMail($request);
+        $mailService->sendRequestStatusMail($appointment);
         $this->addFlash('success', 'Rendez-vous accepté, le client a été notifié.');
 
         return $this->redirectToRoute('app_notifications');
@@ -41,13 +43,13 @@ class NotificationController extends AbstractController
 
     #[Route('/{id}/refuse', name: 'app_notification_refuse', methods: ['POST'])]
     public function refuse(
-        Request $request,
+        Appointment $appointment,
         EntityManagerInterface $em,
         MailService $mailService
     ): Response {
-        $request->setStatus(Status::REFUSED);
+        $appointment->setStatus(Status::REFUSED);
         $em->flush();
-        $mailService->sendRequestStatusMail($request);
+        $mailService->sendRequestStatusMail($appointment);
         $this->addFlash('success', 'Rendez-vous refusé, le client a été notifié.');
 
         return $this->redirectToRoute('app_notifications');
@@ -55,7 +57,7 @@ class NotificationController extends AbstractController
 
     #[Route('/{id}/reschedule', name: 'app_notification_reschedule', methods: ['POST'])]
     public function reschedule(
-        Request $request,
+        Appointment $appointment,
         HttpRequest $httpRequest,
         EntityManagerInterface $em,
         MailService $mailService
@@ -63,9 +65,9 @@ class NotificationController extends AbstractController
         $newDateStr = $httpRequest->request->get('new_date');
         $newDate = $newDateStr ? new \DateTime($newDateStr) : null;
 
-        $request->setStatus(Status::RESCHEDULED);
+        $appointment->setStatus(Status::RESCHEDULED);
         $em->flush();
-        $mailService->sendRequestStatusMail($request, $newDate);
+        $mailService->sendRequestStatusMail($appointment, $newDate);
         $this->addFlash('success', 'Nouveau créneau proposé, le client a été notifié.');
 
         return $this->redirectToRoute('app_notifications');
