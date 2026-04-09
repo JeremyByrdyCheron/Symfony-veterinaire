@@ -15,10 +15,10 @@ if (isset($_POST["pet"])) {
     }
     // print_r($infoRequest);
 }
-$wantedDateCleaned = str_replace('T', ' ', $infoRequest[7]); // Remplace T par un espace
+$wantedDateCleaned = str_replace('T', ' ', $infoRequest[7]);
 $wantedDateCleaned = substr($wantedDateCleaned, 0, 10);
-$sql = "INSERT INTO request (type, email, animal, submittedDate, description, wantedDate, animalFolderId) 
-        VALUES (:type, :email, :animal, :submittedDate, :description, :wantedDate, 1)";
+$sql = "INSERT INTO request (type, email, animal, submittedDate, description, wantedDate) 
+        VALUES (:type, :email, :animal, :submittedDate, :description, :wantedDate)";
 
 if (isset($_POST['pet'])) {
     $request = $pdo->prepare($sql);
