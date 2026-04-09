@@ -1,39 +1,46 @@
 <?php
 include 'assets/function/connection.php';
 
-$date = date('Y-m-d H:i:s');
+$dateNow = date('Y-m-d H:i:s');
 
-$infoRequest = [];
-function clear($char)
-{
-    return htmlspecialchars(trim(strtolower($char)));
+function clear($data) {
+    return htmlspecialchars(trim($data));
 }
 
-if (isset($_POST["pet"])) {
-    foreach ($_POST as $info) {
-        $infoRequest[] = clear($info);
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["pet"])) {
+    
+    $email       = clear($_POST['email']);
+    $animal      = clear($_POST['pet']);
+    $type        = clear($_POST['reason']);
+    $description = clear($_POST['info']);
+    $wantedDate  = $_POST['dateTime'];
+
+    $wantedDateCleaned = substr(str_replace('T', ' ', $wantedDate), 0, 10);
+
+    $sql = "INSERT INTO request (type, email, animal, submittedDate, description, wantedDate) 
+            VALUES (:type, :email, :animal, :submittedDate, :description, :wantedDate)";
+
+    try {
+        $request = $pdo->prepare($sql);
+        $request->execute([
+            'type'          => $type,
+            'email'         => $email,
+            'animal'        => $animal,
+            'submittedDate' => $dateNow,
+            'description'   => $description,
+            'wantedDate'    => $wantedDateCleaned
+        ]);
+        $success = "Votre demande a bien été envoyée !";
+    } catch (PDOException $e) {
+        $error = "Erreur lors de l'envoi : " . $e->getMessage();
     }
-    // print_r($infoRequest);
-}
-$wantedDateCleaned = str_replace('T', ' ', $infoRequest[7]);
-$wantedDateCleaned = substr($wantedDateCleaned, 0, 10);
-$sql = "INSERT INTO request (type, email, animal, submittedDate, description, wantedDate) 
-        VALUES (:type, :email, :animal, :submittedDate, :description, :wantedDate)";
-
-if (isset($_POST['pet'])) {
-    $request = $pdo->prepare($sql);
-    $request->execute([
-        'type' => $infoRequest[5],
-        'email' => $infoRequest[2],
-        'animal' => $infoRequest[4],
-        'submittedDate' => $date,
-        'description' => $infoRequest[6],
-        'wantedDate' => $wantedDateCleaned
-    ]);
 }
 
-include "assets/utils/header.php"
-    ?>
+include "assets/utils/header.php";
+?>
+
+<?php if(isset($success)) echo "<p style='color:green'>$success</p>"; ?>
+<?php if(isset($error)) echo "<p style='color:red'>$error</p>"; ?>
 
 <form action="" method="post">
     <div>
@@ -50,7 +57,7 @@ include "assets/utils/header.php"
     </div>
     <div>
         <label for="phone">Numéro de téléphone : </label>
-        <input type="number" name="phone" id="phone" required />
+        <input type="tel" name="phone" id="phone" required />
     </div>
     <div>
         <label for="pet">Votre animal : </label>
@@ -86,11 +93,9 @@ include "assets/utils/header.php"
     </div>
     <div>
         <label for="dateTime">Date et Heure : </label>
-        <input type="datetime-local" id="dateTime" name="dateTime" value="AAAA-MM-JJ" required />
+        <input type="datetime-local" id="dateTime" name="dateTime" required />
     </div>
     <button type="submit">Envoyer</button>
 </form>
 
-<?php
-include "assets/utils/footer.php"
-    ?>
+<?php include "assets/utils/footer.php"; ?>
