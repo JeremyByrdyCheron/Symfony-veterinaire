@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20260409082441 extends AbstractMigration
+final class Version20260409124205 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -23,19 +23,19 @@ final class Version20260409082441 extends AbstractMigration
         $this->addSql('CREATE TABLE appointment (id INT AUTO_INCREMENT NOT NULL, type VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, animal VARCHAR(255) NOT NULL, status VARCHAR(255) NOT NULL, submitted_date DATE NOT NULL, description LONGTEXT NOT NULL, wanted_date DATE NOT NULL, lastname VARCHAR(255) NOT NULL, firstname VARCHAR(255) NOT NULL, phone_number INT NOT NULL, animal_folder_id_id INT DEFAULT NULL, veterinary_id_id INT DEFAULT NULL, INDEX IDX_FE38F844A09A5461 (animal_folder_id_id), INDEX IDX_FE38F844450FF95C (veterinary_id_id), PRIMARY KEY (id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci`');
         $this->addSql('ALTER TABLE appointment ADD CONSTRAINT FK_FE38F844A09A5461 FOREIGN KEY (animal_folder_id_id) REFERENCES animal_folder (id)');
         $this->addSql('ALTER TABLE appointment ADD CONSTRAINT FK_FE38F844450FF95C FOREIGN KEY (veterinary_id_id) REFERENCES user (id)');
-        $this->addSql('ALTER TABLE request DROP FOREIGN KEY `FK_3B978F9F450FF95C`');
         $this->addSql('ALTER TABLE request DROP FOREIGN KEY `FK_3B978F9FA09A5461`');
         $this->addSql('DROP TABLE request');
+        $this->addSql('ALTER TABLE animal_folder ADD animal VARCHAR(255) NOT NULL');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE TABLE request (id INT AUTO_INCREMENT NOT NULL, type VARCHAR(255) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, email VARCHAR(255) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, animal VARCHAR(255) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, status VARCHAR(255) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, submitted_date DATE NOT NULL, description LONGTEXT CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, wanted_date DATE NOT NULL, lastname VARCHAR(255) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, firstname VARCHAR(255) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, phone_number INT NOT NULL, animal_folder_id_id INT DEFAULT NULL, veterinary_id_id INT DEFAULT NULL, INDEX IDX_3B978F9FA09A5461 (animal_folder_id_id), INDEX IDX_3B978F9F450FF95C (veterinary_id_id), PRIMARY KEY (id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB COMMENT = \'\' ');
-        $this->addSql('ALTER TABLE request ADD CONSTRAINT `FK_3B978F9F450FF95C` FOREIGN KEY (veterinary_id_id) REFERENCES user (id)');
+        $this->addSql('CREATE TABLE request (id INT AUTO_INCREMENT NOT NULL, type VARCHAR(255) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, email VARCHAR(255) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, animal VARCHAR(255) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, status VARCHAR(255) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, submitted_date DATE NOT NULL, description LONGTEXT CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, wanted_date DATE NOT NULL, animal_folder_id_id INT NOT NULL, INDEX IDX_3B978F9FA09A5461 (animal_folder_id_id), PRIMARY KEY (id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB COMMENT = \'\' ');
         $this->addSql('ALTER TABLE request ADD CONSTRAINT `FK_3B978F9FA09A5461` FOREIGN KEY (animal_folder_id_id) REFERENCES animal_folder (id)');
         $this->addSql('ALTER TABLE appointment DROP FOREIGN KEY FK_FE38F844A09A5461');
         $this->addSql('ALTER TABLE appointment DROP FOREIGN KEY FK_FE38F844450FF95C');
         $this->addSql('DROP TABLE appointment');
+        $this->addSql('ALTER TABLE animal_folder DROP animal');
     }
 }

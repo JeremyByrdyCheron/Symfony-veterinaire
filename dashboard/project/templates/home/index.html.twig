@@ -1,16 +1,97 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Accueil{% endblock %}
+{% block title %}Accueil
+{% endblock %}
 
 {% block body %}
-    <h1>Accueil</h1>
+	<h1>Accueil</h1>
 
-    {% if user %}
-        <p>Bienvenue, {{ user.firstname }} !</p>
-        <p><a href="{{ path('app_logout') }}">Se déconnecter</a></p>
-    {% else %}
-        <p>Vous n'êtes pas connecté.</p>
-        <p><a href="{{ path('app_login') }}">Se connecter</a> | 
-           <a href="{{ path('app_register') }}">S'inscrire</a></p>
-    {% endif %}
+	{% if user %}
+		<p>Bienvenue,
+			{{ user.firstname }}
+			!</p>
+		<p>
+			<a href="{{ path('app_logout') }}">Se déconnecter</a>
+		</p>
+
+
+		<h2>
+			Vos rendez-vous
+		</h2>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>
+						Type
+					</th>
+					<th>
+						Animal
+					</th>
+					<th>
+						Date d'envoi
+					</th>
+					<th>
+						Date souhaitée
+					</th>
+					<th>
+						Description
+					</th>
+					<th>
+						Nom de famille
+					</th>
+					<th>
+						Prénom
+					</th>
+					<th>
+						E-mail
+					</th>
+					<th>
+						Numéro de téléphone
+					</th>
+				</tr>
+
+			</thead>
+			{% for appointment in appointments %}
+				<tr>
+					<td>
+						{{appointment.type.name}}
+					</td>
+
+					<td>
+						{{appointment.animal}}
+					</td>
+					<td>
+						{{appointment.submittedDate|date('Y-m-d')}}
+					</td>
+					<td>
+						{{appointment.wantedDate|date('Y-m-d')}}
+					</td>
+					<td>
+						{{appointment.description}}
+					</td>
+					<td>
+						{{appointment.lastname}}
+					</td>
+					<td>
+						{{appointment.firstname}}
+					</td>
+					<td>
+						{{appointment.email}}
+					</td>
+					<td>
+						{{appointment.phoneNumber}}
+					</td>
+
+				</tr>
+			{% endfor %}
+
+		</table>
+	{% else %}
+		<p>Vous n'êtes pas connecté.</p>
+		<p>
+			<a href="{{ path('app_login') }}">Se connecter</a>
+			|
+			<a href="{{ path('app_register') }}">S'inscrire</a>
+		</p>
+	{% endif %}
 {% endblock %}
