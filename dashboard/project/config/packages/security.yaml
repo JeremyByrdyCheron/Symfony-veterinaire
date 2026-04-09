@@ -20,7 +20,8 @@ security:
             form_login:
                 login_path: app_login
                 check_path: app_login
-                default_target_path: app_home
+                default_target_path: app_pending
+                always_use_default_target_path: true
 
             remember_me:
                 secret: "%kernel.secret%"
@@ -33,6 +34,7 @@ security:
     access_control:
         - { path: ^/login, roles: PUBLIC_ACCESS }
         - { path: ^/register, roles: PUBLIC_ACCESS }
+        - { path: ^/pending, roles: ROLE_USER }
         - { path: ^/, roles: ROLE_USER }
 
 when@test:

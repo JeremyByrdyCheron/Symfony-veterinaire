@@ -5,6 +5,7 @@
 
 {% if error %}
     <div class="alert alert-danger">{{ error.messageKey|trans }}</div>
+    <div>{{ error.message }}</div>  {# Ajoute ça temporairement #}
 {% endif %}
 
 <form method="post">

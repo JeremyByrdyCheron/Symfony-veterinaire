@@ -20,31 +20,36 @@ class RegistrationController extends AbstractController
         UserPasswordHasherInterface $passwordHasher,
         Security $security,
         EntityManagerInterface $entityManager
-    ): Response
-    {
+    ): Response {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-            // Hash du mot de passe
             $plainPassword = $form->get('plainPassword')->getData();
             $user->setPassword($passwordHasher->hashPassword($user, $plainPassword));
-
-            // Définir rôle par défaut
-            $user->setRoles(['ROLE_USER']);
-
-            // Sauvegarder l'utilisateur
+            $user->setStatus(User::STATUS_PENDING);
             $entityManager->persist($user);
             $entityManager->flush();
 
-            // Connexion automatique
             return $security->login($user, 'form_login', 'main');
         }
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
+    }
+
+    #[Route('/pending', name: 'app_pending')]
+    public function pending(): Response
+    {
+        /** @var \App\Entity\User $user */
+        $user = $this->getUser();
+
+        if ($user && $user->getStatus() === User::STATUS_APPROVED) {
+            return $this->redirectToRoute('app_home');
+        }
+
+        return $this->render('registration/pending.html.twig');
     }
 }

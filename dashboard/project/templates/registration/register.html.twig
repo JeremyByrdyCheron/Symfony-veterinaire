@@ -44,6 +44,12 @@
     </div>
 
     <div>
+        {{ form_label(registrationForm.licenseNumber) }}
+        {{ form_widget(registrationForm.licenseNumber) }}
+        {{ form_errors(registrationForm.licenseNumber) }}
+    </div>
+
+    <div>
         {{ form_widget(registrationForm.submit) }}
     </div>
 

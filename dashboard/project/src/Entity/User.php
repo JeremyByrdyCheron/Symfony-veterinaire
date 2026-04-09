@@ -39,6 +39,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'json')]
     private array $roles = [];
 
+    #[ORM\Column(length: 20)]
+    private string $status = 'pending';
+
+    public const STATUS_PENDING = 'pending';
+    public const STATUS_APPROVED = 'approved';
+    public const STATUS_REJECTED = 'rejected';
+
+    #[ORM\Column(length: 50, nullable: false)]
+    private ?string $licenseNumber = null;
+
     /**
      * @var Collection<int, AnimalFolder>
      */
@@ -125,6 +135,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setRoles(array $roles): static
     {
         $this->roles = $roles;
+        return $this;
+    }
+
+    public function getStatus(): string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): static
+    {
+        $this->status = $status;
+        return $this;
+    }
+    
+    public function getLicenseNumber(): string
+    {
+        return $this->licenseNumber ?? '';
+    }
+
+    public function setLicenseNumber(string $licenseNumber): static
+    {
+        $this->licenseNumber = $licenseNumber;
         return $this;
     }
 

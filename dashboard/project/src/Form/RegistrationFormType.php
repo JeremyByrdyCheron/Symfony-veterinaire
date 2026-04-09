@@ -62,6 +62,12 @@ class RegistrationFormType extends AbstractType
                     new Length(max: 255, maxMessage: 'L\'adresse ne peut pas dépasser {{ limit }} caractères'),
                 ],
             ])
+            ->add('licenseNumber', TextType::class, [
+                'label' => 'Licence vétérinaire (facultatif)',
+                'constraints' => [
+                    new NotBlank(message: 'Veuillez saisir votre numéro de licence vétérinaire'),
+                ],
+            ])
             ->add('submit', SubmitType::class, [
                 'label' => 'S’inscrire',
             ]);
