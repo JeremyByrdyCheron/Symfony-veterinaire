@@ -63,7 +63,7 @@ class RegistrationFormType extends AbstractType
                 ],
             ])
             ->add('licenseNumber', TextType::class, [
-                'label' => 'Licence vétérinaire (facultatif)',
+                'label' => 'Licence vétérinaire',
                 'constraints' => [
                     new NotBlank(message: 'Veuillez saisir votre numéro de licence vétérinaire'),
                 ],

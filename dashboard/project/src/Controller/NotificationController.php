@@ -33,7 +33,11 @@ class NotificationController extends AbstractController
         EntityManagerInterface $em,
         MailService $mailService
     ): Response {
+        /** @var \App\Entity\User $user */
+        $user = $this->getUser();
+
         $appointment->setStatus(Status::ACCEPTED);
+        $appointment->setVeterinaryId($user); // ← assignation au véto connecté
         $em->flush();
         $mailService->sendRequestStatusMail($appointment);
         $this->addFlash('success', 'Rendez-vous accepté, le client a été notifié.');
