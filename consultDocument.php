@@ -1,6 +1,20 @@
 <?php
+include 'assets/function/connection.php';
+$sql = 'SELECT token FROM document WHERE token=:code';
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    try {
+        $request = $pdo->prepare($sql);
+        $request->execute([
+            'code' => $_POST('code')
+        ]);
+    } catch (PDOException $e) {
+        $error = "Erreur lors de l'envoi : " . $e->getMessage();
+        die();
+    }
+}
 include 'assets/utils/header.php';
- ?>
+?>
 
 <form action="" method="post">
     <div>
@@ -10,6 +24,6 @@ include 'assets/utils/header.php';
     <button type="submit">Valider</button>
 </form>
 
-<?php 
+<?php
 include 'assets/utils/footer.php';
 ?>
