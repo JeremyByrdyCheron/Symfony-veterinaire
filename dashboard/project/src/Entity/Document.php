@@ -35,6 +35,9 @@ class Document
     #[ORM\JoinColumn(nullable: false)]
     private ?AnimalFolder $animalId = null;
 
+    #[ORM\Column(length: 20)]
+    private ?string $url = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -100,8 +103,20 @@ class Document
         return $this;
     }
 
+    public function getUrl(): ?string
+    {
+        return $this->url;
+    }
+
+    public function setUrl(string $url): static
+    {
+        $this->url = $url;
+
+        return $this;
+    }
     public function __construct()
     {
         $this->token = uniqid("", true);
+        $this->url = uniqid("");
     }
 }
