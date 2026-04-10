@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier mon profil
+{% endblock %}
+
+{% block body %}
+	<h1>Modifier mon profil</h1>
+
+	{{ form_start(form) }}
+	{{ form_row(form.name) }}
+	{{ form_row(form.firstname) }}
+	{{ form_row(form.email) }}
+	{{ form_row(form.phoneNumber) }}
+	{{ form_row(form.address) }}
+
+
+	<button type="submit">Enregistrer</button>
+	{{ form_end(form) }}
+
+	<a class="btn" href="{{ path('profile') }}">Annuler</a>
+	<a class="btn" href="{{ path('app_forgot_password_request') }}">Réinitialiser le mot de passe</a>
+{% endblock %}

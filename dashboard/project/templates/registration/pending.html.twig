@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div style="text-align:center; margin-top: 100px;">
+    <h1>⏳ Compte en attente de validation</h1>
+    <p>Votre compte a bien été créé.</p>
+    <p>Il est actuellement en cours de validation par le <strong>Ministère de la Santé</strong>.</p>
+    <p>Vous recevrez un email dès que votre accès sera activé.</p>
+    <a class="btn" href="{{ path('app_logout') }}">Se déconnecter</a>
+</div>
+{% endblock %}

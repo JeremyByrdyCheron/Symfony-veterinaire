@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier dossier{% endblock %}
+
+{% block body %}
+    <h1>Modifier dossier</h1>
+
+    {{ include('animal_folder/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+
+    <a class="btn" href="{{ path('app_animal_folder_index') }}">Retour à la liste</a>
+
+    {{ include('animal_folder/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Documents{% endblock %}
+
+{% block body %}
+    <h1>Liste des Documents</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Client</th>
+                <th>Animal</th>
+                <th>Type de RDV</th>
+                <th>Date RDV</th>
+                <th>PDF</th>
+                <th>Modifié le</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for document in documents %}
+                <tr>
+                    <td>
+                        {% if document.appointmentId %}
+                            {{ document.appointmentId.firstname }} {{ document.appointmentId.lastname }}
+                        {% else %}
+                            —
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if document.appointmentId and document.appointmentId.animalFolderId %}
+                            {{ document.appointmentId.animalFolderId.name }}
+                        {% else %}
+                            —
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if document.appointmentId %}
+                            {{ document.appointmentId.type.value }}
+                        {% else %}
+                            —
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if document.appointmentId %}
+                            {{ document.appointmentId.wantedDate|date('d/m/Y') }}
+                        {% else %}
+                            —
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{{ asset('uploads/pdfs/' ~ document.pdf) }}" download>
+                            Télécharger le PDF
+                        </a>
+                    </td>
+                    <td>{{ document.updatedAt ? document.updatedAt|date('d/m/Y H:i') : '—' }}</td>
+                    <td>
+                        <a href="{{ path('app_document_show', {'id': document.id}) }}">Voir</a>
+                        <a href="{{ path('app_document_edit', {'id': document.id}) }}">Modifier</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="7">Pas de documents trouvés</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn" href="{{ path('app_document_new') }}">Créer un nouveau document</a>
+{% endblock %}

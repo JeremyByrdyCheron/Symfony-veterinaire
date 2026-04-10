@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau dossier{% endblock %}
+
+{% block body %}
+    <h1>Créer un nouveau dossier</h1>
+
+    {{ include('animal_folder/_form.html.twig') }}
+
+    <a class="btn" href="{{ path('app_animal_folder_index') }}">Retour à la liste</a>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+{% block title %}Mon planning{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+<h1>Mon planning</h1>
+<div id="calendar"></div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const calendarEl = document.getElementById('calendar');
+
+            const calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                locale: 'fr',
+                events: {{ events|raw }},
+                eventClick: function(info) {
+                    alert(
+                        'Patient : ' + info.event.title + '\n' +
+                        'Description : ' + info.event.extendedProps.description
+                    );
+                }
+            });
+
+            calendar.render();
+        });
+    </script>
+{% endblock %}

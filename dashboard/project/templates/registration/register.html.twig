@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+<h1>Inscription</h1>
+
+{{ form_start(registrationForm) }}
+
+    <div>
+        {{ form_label(registrationForm.name) }}
+        {{ form_widget(registrationForm.name) }}
+        {{ form_errors(registrationForm.name) }}
+    </div>
+
+    <div>
+        {{ form_label(registrationForm.firstname) }}
+        {{ form_widget(registrationForm.firstname) }}
+        {{ form_errors(registrationForm.firstname) }}
+    </div>
+
+    <div>
+        {{ form_label(registrationForm.email) }}
+        {{ form_widget(registrationForm.email) }}
+        {{ form_errors(registrationForm.email) }}
+    </div>
+
+    <div>
+        {{ form_label(registrationForm.plainPassword) }}
+        {{ form_widget(registrationForm.plainPassword) }}
+        {{ form_errors(registrationForm.plainPassword) }}
+    </div>
+
+    <div>
+        {{ form_label(registrationForm.phoneNumber) }}
+        {{ form_widget(registrationForm.phoneNumber) }}
+        {{ form_errors(registrationForm.phoneNumber) }}
+    </div>
+
+    <div>
+        {{ form_label(registrationForm.address) }}
+        {{ form_widget(registrationForm.address) }}
+        {{ form_errors(registrationForm.address) }}
+    </div>
+
+    <div>
+        {{ form_label(registrationForm.licenseNumber) }}
+        {{ form_widget(registrationForm.licenseNumber) }}
+        {{ form_errors(registrationForm.licenseNumber) }}
+    </div>
+
+    <div>
+        {{ form_widget(registrationForm.submit) }}
+    </div>
+
+{{ form_end(registrationForm) }}
+
+<p>
+        Déjà un compte ?
+        <a class="btn" href="{{ path('app_login') }}">Connexion</a>
+    </p>
+{% endblock %}

@@ -1,0 +1,7 @@
+{{ form_start(form) }}
+    {{ form_errors(form) }}
+    {{ form_row(form.pdfFile) }}
+    {{ form_row(form.animalId) }}
+    {{ form_row(form.appointmentId) }}
+    <button class="btn">{{ button_label|default('Sauvegarder') }}</button>
+{{ form_end(form) }}
