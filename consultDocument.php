@@ -48,15 +48,19 @@ if (isset($_SESSION['access_' . $token]) && $_SESSION['access_' . $token] === tr
 include 'assets/utils/header.php';
 ?>
 
-<div class="container">
-    <h2>Accès sécurisé au document</h2>
-
-    <form method="POST">
-        <label for="code">Veuillez saisir le code d'accès :</label><br>
-        <input type="text" name="code" id="code" maxlength="6" placeholder="Ex: 123456" required>
+<section class="container" id="formulaire">
+     <div id="img_form">
+        <img src="assets/img/motif_recup_doc.jpg" alt="Illustration chien, chat, tortue et veterinaire">
+    </div>
+    <form id="inline" method="POST">
+        <h2>Accéder à mon document</h2>
+        <div class="padd_form2">
+            <label  for="code">Veuillez saisir le code d'accès :</label><br>
+            <input type="text" name="code" id="code" maxlength="6" placeholder="Ex: 123456" required>
+        </div>
         <button type="submit">Valider</button>
     </form>
-</div>
+</section>
 
 <?php
 include 'assets/utils/footer.php';
