@@ -21,9 +21,9 @@ class UserType extends AbstractType
             ->add('email', null, [
                 'label' => 'Email',
             ])
-            ->add('password', null, [
-                'label' => 'Mot de passe',
-            ])
+            // ->add('password', null, [
+            //     'label' => 'Mot de passe',
+            // ])
             ->add('phoneNumber', null, [
                 'label' => 'Numéro de téléphone',
             ])
