@@ -1,10 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=DM+Sans:wght@400;500;600&display=swap");
 
 :root {
-    --teal: #1a8a8a;
-    --teal-dark: #146e6e;
+    --teal: #68BC58;
+    --teal-dark: #005B71;
     --teal-light: #e8f5f5;
-    --green: #17c789;
+    --green: #008BA2;
     --green-light: #e8f5e9;
     --white: #ffffff;
     --gray-100: #f4f7f7;

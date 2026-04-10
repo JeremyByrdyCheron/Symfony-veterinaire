@@ -27,7 +27,7 @@ class Appointment
     private ?string $animal = null;
 
     #[ORM\Column(enumType: Status::class)]
-    private ?Status $status = null;
+    private Status $status = Status::PENDING;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTime $submittedDate = null;
@@ -205,5 +205,6 @@ class Appointment
     public function __construct()
     {
         $this->submittedDate = new DateTime();
+        $this->status = Status::PENDING;
     }
 }

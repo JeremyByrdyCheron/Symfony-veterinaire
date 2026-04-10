@@ -19,7 +19,9 @@ final class AppointmentController extends AbstractController
     public function index(AppointmentRepository $appointmentRepository): Response
     {
         return $this->render('appointment/index.html.twig', [
-            'appointments' => $appointmentRepository->findAll(),
+            'appointments' => $appointmentRepository->findBy([
+                'status' => Status::ACCEPTED,
+            ]),
         ]);
     }
 
