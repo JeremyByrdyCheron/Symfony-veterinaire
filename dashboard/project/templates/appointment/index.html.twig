@@ -1,57 +1,49 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Liste des rendez-vous{% endblock %}
+{% block title %}Liste des rendez-vous{% endblock %}
 
 {% block body %}
+<h1>Liste des rendez-vous</h1>
 
-	<h1>Liste des rendez-vous</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Type</th>
+            <th>Client</th>
+            <th>Animal</th>
+            <th>Statut</th>
+            <th>Date souhaitée</th>
+            <th>Téléphone</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for appointment in appointments %}
+            <tr>
+                <td>{{ appointment.type.name }}</td>
+                <td>{{ appointment.firstname }} {{ appointment.lastname }}</td>
+                <td>{{ appointment.animal }}</td>
+                <td>
+                    <span class="badge badge-{{ appointment.status.value }}">
+                        {{ appointment.status.value }}
+                    </span>
+                </td>
+                <td>{{ appointment.wantedDate ? appointment.wantedDate|date('d/m/Y') : '' }}</td>
+                <td>{{ appointment.phoneNumber }}</td>
+                <td>
+                    <a href="{{ path('app_appointment_show', {'id': appointment.id}) }}" class="btn btn-sm">Voir</a>
+                    <a href="{{ path('app_appointment_edit', {'id': appointment.id}) }}" class="btn btn-sm btn-outline">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7" style="text-align:center; color: #9ab5b5; padding: 2rem;">Pas de rendez-vous trouvés</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
 
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Type</th>
-				<th>Email</th>
-				<th>Animal</th>
-				<th>Statut</th>
-				<th>Date de la demande</th>
-				<th>Description</th>
-				<th>Date souhaitée</th>
-				<th>Nom de famille</th>
-				<th>Prénom</th>
-				<th>Numéro de téléphone</th>
-				<th>Actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for appointment in appointments %}
-				{% dump(appointment) %}
-				<tr>
-					<td>{{ appointment.type.name }}</td>
-					<td>{{ appointment.email }}</td>
-					<td>{{ appointment.animal }}</td>
-					<td>{{ appointment.status.name }}</td>
-					<td>{{ appointment.submittedDate ? appointment.submittedDate|date('Y-m-d') : '' }}</td>
-					<td>{{ appointment.description }}</td>
-					<td>{{ appointment.wantedDate ? appointment.wantedDate|date('Y-m-d') : '' }}</td>
-					<td>{{ appointment.lastname }}</td>
-					<td>{{ appointment.firstname }}</td>
-					<td>{{ appointment.phoneNumber }}</td>
-					<td>
-						<a href="{{ path('app_appointment_show', {'id': appointment.id}) }}">Voir</a>
-						<a href="{{ path('app_appointment_edit', {'id': appointment.id}) }}">Modifier</a>
-					</td>
-				</tr>
-			{% else %}
-				<tr>
-					<td colspan="12">Pas de rendez-vous trouvés</td>
-				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
-
-	<a class="btn" href="{{ path('app_appointment_new') }}">Créer un nouveau rendez-vous</a>
-
-	<a class="btn" href="{{ path('app_notifications') }}">Demandes de rendez-vous</a>
-
-	<a class="btn" href="{{ path('app_calendar') }}">Votre calendrier de rendez-vous</a>
+<a class="btn" href="{{ path('app_appointment_new') }}">➕ Nouveau rendez-vous</a>
+<a class="btn" href="{{ path('app_notifications') }}" style="margin-left: 0.5rem;">🔔 Demandes en attente</a>
+<a class="btn" href="{{ path('app_calendar') }}" style="margin-left: 0.5rem;">📅 Calendrier</a>
 {% endblock %}

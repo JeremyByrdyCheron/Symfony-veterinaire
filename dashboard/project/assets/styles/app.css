@@ -1,80 +1,498 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=DM+Sans:wght@400;500;600&display=swap");
+
 :root {
+    --teal: #68BC58;
+    --teal-dark: #005B71;
+    --teal-light: #e8f5f5;
+    --green: #008BA2;
+    --green-light: #e8f5e9;
+    --white: #ffffff;
+    --gray-100: #f4f7f7;
+    --gray-200: #e2eaea;
+    --gray-400: #9ab5b5;
+    --gray-700: #3a5a5a;
+    --text: #1e3a3a;
+    --danger: #e53e3e;
+    --warning: #d97706;
     --radius: 12px;
     --transition: 0.2s ease;
+    --shadow: 0 4px 20px rgba(26, 138, 138, 0.1);
+    --shadow-sm: 0 2px 8px rgba(26, 138, 138, 0.08);
 }
 
-html, body {
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
+
+html,
 body {
-    background-color: white;
+    margin: 0;
+    padding: 0;
 }
-.container {
-    max-width: 1200px;
-    margin: 10px;
-    padding: 20px;
+
+body {
+    font-family: "DM Sans", sans-serif;
+    background: var(--gray-100);
+    color: var(--text);
+    min-height: 100vh;
 }
+
 nav {
-    margin: 0;   
+    margin: 0;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    padding: 10px 20px !important;
-    background-color: #17C789;
+    padding: 10px 20px;
+    background-color: var(--green);
+    box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
+
+nav img {
+    height: 100px;
+    width: auto;
+}
+
 nav ul {
     list-style: none;
     display: flex;
     justify-content: space-between;
     gap: 15px;
 }
+
 nav ul li {
     display: inline;
-    justify-content: space-between;
 }
 
 nav ul li a {
     text-decoration: none;
-    color: black;
+    color: white;
     font-weight: 600;
+    padding: 0.45rem 1rem;
+    border-radius: 8px;
     transition: var(--transition);
+    font-size: 0.95rem;
+}
+
+nav ul li a:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    text-decoration: none;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+}
+
+h1 {
+    font-family: "Nunito", sans-serif;
+    font-weight: 800;
+    font-size: 1.8rem;
+    color: var(--teal-dark);
+    margin-bottom: 1.5rem;
+    position: relative;
+    padding-bottom: 0.6rem;
+}
+
+h1::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 48px;
+    height: 3px;
+    background: var(--green);
+    border-radius: 2px;
+}
+
+h2 {
+    font-family: "Nunito", sans-serif;
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: var(--teal-dark);
+    margin-bottom: 1rem;
 }
 
 table {
     width: 100%;
-    border-collapse: initial;
-    border: 1px solid #ddd;
+    border-collapse: collapse;
+    background: var(--white);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
     margin-top: 20px;
+    font-size: 0.9rem;
 }
 
 table th,
 table td {
-    padding: 8px;
+    padding: 0.85rem 1.1rem;
     text-align: left;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid var(--gray-200);
+    vertical-align: middle;
 }
 
 table th {
-    background-color: #00b7ff;
+    background-color: var(--teal);
     color: white;
+    font-family: "Nunito", sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
+table tbody tr {
+    transition: background var(--transition);
+}
+table tbody tr:last-child td {
+    border-bottom: none;
+}
+table tbody tr:hover {
+    background: var(--teal-light);
 }
 
 .btn {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
     margin: 20px 0;
     padding: 10px 18px;
     border-radius: var(--radius);
     border: none;
     cursor: pointer;
+    font-family: "DM Sans", sans-serif;
     font-weight: 600;
+    font-size: 0.9rem;
     transition: var(--transition);
-    background-color: #00b7ff;
+    background-color: var(--teal);
     color: white;
     text-decoration: none;
 }
 
 .btn:hover {
-    background-color: #00a0e0;
+    background-color: var(--teal-dark);
+    box-shadow: 0 4px 12px rgba(26, 138, 138, 0.3);
+    color: white;
+    text-decoration: none;
 }
 
+.btn:active {
+    transform: scale(0.97);
+}
+
+.btn-success {
+    background: var(--green);
+    color: white;
+    margin: 0;
+}
+.btn-success:hover {
+    background: #12a872;
+    box-shadow: 0 4px 12px rgba(23, 199, 137, 0.3);
+}
+
+.btn-danger {
+    background: var(--danger);
+    color: white;
+    margin: 0;
+}
+.btn-danger:hover {
+    background: #c53030;
+    box-shadow: 0 4px 12px rgba(229, 62, 62, 0.3);
+}
+
+.btn-warning {
+    background: var(--warning);
+    color: white;
+    margin: 0;
+}
+.btn-warning:hover {
+    background: #b45309;
+    box-shadow: 0 4px 12px rgba(217, 119, 6, 0.3);
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--teal);
+    border: 2px solid var(--teal);
+    margin: 0;
+}
+.btn-outline:hover {
+    background: var(--teal-light);
+}
+
+.btn-sm {
+    padding: 0.3rem 0.8rem;
+    font-size: 0.82rem;
+    margin: 0;
+}
+
+.card {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--gray-200);
+    transition: box-shadow var(--transition);
+}
+
+.card:hover {
+    box-shadow: 0 6px 28px rgba(26, 138, 138, 0.15);
+}
+
+.card-header {
+    font-family: "Nunito", sans-serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--teal);
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.5rem;
+    box-shadow: var(--shadow-sm);
+    border-left: 4px solid var(--teal);
+}
+
+.stat-card.green {
+    border-left-color: var(--green);
+}
+.stat-card.orange {
+    border-left-color: var(--warning);
+}
+.stat-card.red {
+    border-left-color: var(--danger);
+}
+
+.stat-card .stat-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--gray-400);
+}
+
+.stat-card .stat-value {
+    font-family: "Nunito", sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--teal-dark);
+    line-height: 1;
+    margin-top: 0.25rem;
+}
+
+.stat-card.green .stat-value {
+    color: var(--green);
+}
+.stat-card.orange .stat-value {
+    color: var(--warning);
+}
+.stat-card.red .stat-value {
+    color: var(--danger);
+}
+
+form label,
+.form-label {
+    display: block;
+    font-weight: 600;
+    font-size: 0.88rem;
+    color: var(--gray-700);
+    margin-bottom: 0.35rem;
+}
+
+form input,
+form select,
+form textarea,
+.form-control {
+    width: 100%;
+    padding: 0.6rem 0.9rem;
+    border: 1.5px solid var(--gray-200);
+    border-radius: 8px;
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.95rem;
+    color: var(--text);
+    background: var(--white);
+    transition:
+        border-color var(--transition),
+        box-shadow var(--transition);
+    margin-bottom: 1rem;
+}
+
+form input:focus,
+form select:focus,
+form textarea:focus,
+.form-control:focus {
+    outline: none;
+    border-color: var(--teal);
+    box-shadow: 0 0 0 3px rgba(26, 138, 138, 0.12);
+}
+
+form textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
+.badge-pending {
+    background: #fff3cd;
+    color: #856404;
+}
+.badge-accepted {
+    background: var(--green-light);
+    color: #2e7d32;
+}
+.badge-refused {
+    background: #fde8e8;
+    color: var(--danger);
+}
+.badge-rescheduled {
+    background: #e0f2fe;
+    color: #0369a1;
+}
+
+.alert {
+    padding: 0.85rem 1.2rem;
+    border-radius: 8px;
+    margin-bottom: 1.25rem;
+    font-weight: 500;
+    font-size: 0.92rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.alert-success {
+    background: var(--green-light);
+    color: #2e7d32;
+    border-left: 4px solid var(--green);
+}
+.alert-danger {
+    background: #fde8e8;
+    color: var(--danger);
+    border-left: 4px solid var(--danger);
+}
+.alert-warning {
+    background: #fff3cd;
+    color: var(--warning);
+    border-left: 4px solid var(--warning);
+}
+
+a {
+    color: var(--teal);
+    text-decoration: none;
+    transition: color var(--transition);
+}
+a:hover {
+    color: var(--teal-dark);
+}
+
+.pending-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 70vh;
+    text-align: center;
+    gap: 1rem;
+}
+
+.pending-page .pending-icon {
+    font-size: 4rem;
+    margin-bottom: 0.5rem;
+}
+.pending-page h1 {
+    font-size: 1.6rem;
+}
+.pending-page h1::after {
+    left: 50%;
+    transform: translateX(-50%);
+}
+.pending-page p {
+    color: var(--gray-700);
+    max-width: 480px;
+    line-height: 1.6;
+}
+
+#calendar {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+}
+
+.fc-toolbar-title {
+    font-family: "Nunito", sans-serif !important;
+    font-weight: 800 !important;
+    color: var(--teal-dark) !important;
+}
+.fc-button-primary {
+    background: var(--teal) !important;
+    border-color: var(--teal) !important;
+    border-radius: 8px !important;
+}
+.fc-button-primary:hover {
+    background: var(--teal-dark) !important;
+}
+.fc-event {
+    background: var(--teal) !important;
+    border-color: var(--teal-dark) !important;
+    border-radius: 6px !important;
+    font-size: 0.82rem !important;
+}
+
+@media (max-width: 768px) {
+    nav {
+        padding: 0 1rem;
+    }
+    .container {
+        padding: 1.25rem 1rem;
+    }
+    .stats-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    h1 {
+        font-size: 1.4rem;
+    }
+    table {
+        font-size: 0.82rem;
+    }
+    table th,
+    table td {
+        padding: 0.65rem 0.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+}

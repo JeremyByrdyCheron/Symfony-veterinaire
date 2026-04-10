@@ -2,58 +2,27 @@
 
 {% block title %}Rendez-vous{% endblock %}
 
-
 {% block body %}
-	<h1>Rendez-vous</h1>
+<h1>Rendez-vous</h1>
 
-	<table class="table">
-		<tbody>
-			<tr>
-				<th>Type</th>
-				<td>{{ appointment.type.name }}</td>
-			</tr>
-			<tr>
-				<th>Email</th>
-				<td>{{ appointment.email }}</td>
-			</tr>
-			<tr>
-				<th>Animal</th>
-				<td>{{ appointment.animal }}</td>
-			</tr>
-			<tr>
-				<th>Statut</th>
-				<td>{{ appointment.status.name }}</td>
-			</tr>
-			<tr>
-				<th>Date de la demande</th>
-				<td>{{ appointment.submittedDate ? appointment.submittedDate|date('Y-m-d') : '' }}</td>
-			</tr>
-			<tr>
-				<th>Description</th>
-				<td>{{ appointment.description }}</td>
-			</tr>
-			<tr>
-				<th>Date souhaitée</th>
-				<td>{{ appointment.wantedDate ? appointment.wantedDate|date('Y-m-d') : '' }}</td>
-			</tr>
-			<tr>
-				<th>Nom de famille</th>
-				<td>{{ appointment.lastname }}</td>
-			</tr>
-			<tr>
-				<th>Prénom</th>
-				<td>{{ appointment.firstname }}</td>
-			</tr>
-			<tr>
-				<th>Numéro de téléphone</th>
-				<td>{{ appointment.phoneNumber }}</td>
-			</tr>
-		</tbody>
-	</table>
+<div class="card" style="max-width: 600px;">
+    <table>
+        <tbody>
+            <tr><th>Type</th><td>{{ appointment.type.name }}</td></tr>
+            <tr><th>Email</th><td>{{ appointment.email }}</td></tr>
+            <tr><th>Animal</th><td>{{ appointment.animal }}</td></tr>
+            <tr><th>Statut</th><td><span class="badge badge-{{ appointment.status.value }}">{{ appointment.status.value }}</span></td></tr>
+            <tr><th>Date de la demande</th><td>{{ appointment.submittedDate ? appointment.submittedDate|date('d/m/Y') : '' }}</td></tr>
+            <tr><th>Description</th><td>{{ appointment.description }}</td></tr>
+            <tr><th>Date souhaitée</th><td>{{ appointment.wantedDate ? appointment.wantedDate|date('d/m/Y') : '' }}</td></tr>
+            <tr><th>Nom</th><td>{{ appointment.lastname }}</td></tr>
+            <tr><th>Prénom</th><td>{{ appointment.firstname }}</td></tr>
+            <tr><th>Téléphone</th><td>{{ appointment.phoneNumber }}</td></tr>
+        </tbody>
+    </table>
+</div>
 
-	<a class="btn" href="{{ path('app_appointment_index') }}">Reour à la liste</a>
-
-	<a class="btn" href="{{ path('app_appointment_edit', {'id': appointment.id}) }}">Modifier</a>
-
-	{{ include('appointment/_delete_form.html.twig') }}
+<a class="btn btn-outline" href="{{ path('app_appointment_index') }}">← Retour à la liste</a>
+<a class="btn" href="{{ path('app_appointment_edit', {'id': appointment.id}) }}" style="margin-left: 0.5rem;">✏️ Modifier</a>
+{{ include('appointment/_delete_form.html.twig') }}
 {% endblock %}

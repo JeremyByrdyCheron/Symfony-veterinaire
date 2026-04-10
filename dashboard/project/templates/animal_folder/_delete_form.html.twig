@@ -1,4 +1,4 @@
-<form method="post" action="{{ path('app_animal_folder_delete', {'id': animal_folder.id}) }}" onsubmit="return confirm('Êtes vous sûr(e) de vouloir supprimer ceci ?');">
+<form method="post" action="{{ path('app_animal_folder_delete', {'id': animal_folder.id}) }}" onsubmit="return confirm('Êtes vous sûr(e) de vouloir supprimer ceci ?');" style="display:inline; margin-left: 0.5rem;">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ animal_folder.id) }}">
-    <button class="btn">Supprimer</button>
+    <button class="btn btn-danger">🗑️ Supprimer</button>
 </form>

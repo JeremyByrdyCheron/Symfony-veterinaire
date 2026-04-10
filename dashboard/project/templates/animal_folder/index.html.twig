@@ -3,38 +3,37 @@
 {% block title %}Liste des dossiers{% endblock %}
 
 {% block body %}
+<h1>Dossiers animaux</h1>
 
-	<h1>Liste des dossiers</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Nom du propriétaire</th>
+            <th>Animal</th>
+            <th>Âge</th>
+            <th>Date d'inscription</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for animal_folder in animal_folders %}
+            <tr>
+                <td>{{ animal_folder.name }}</td>
+                <td>{{ animal_folder.animal }}</td>
+                <td>{{ animal_folder.age }} ans</td>
+                <td>{{ animal_folder.inscriptionDate ? animal_folder.inscriptionDate|date('d/m/Y') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_animal_folder_show', {'id': animal_folder.id}) }}" class="btn btn-sm">Voir</a>
+                    <a href="{{ path('app_animal_folder_edit', {'id': animal_folder.id}) }}" class="btn btn-sm btn-outline">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5" style="text-align:center; color: #9ab5b5; padding: 2rem;">Pas d'animaux enregistrés</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
 
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Nom</th>
-				<th>Animal</th>
-				<th>Âge</th>
-				<th>Date d'inscription</th>
-				<th>Actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for animal_folder in animal_folders %}
-				<tr>
-					<td>{{ animal_folder.name }}</td>
-					<td>{{ animal_folder.animal }}</td>
-					<td>{{ animal_folder.age }}</td>
-					<td>{{ animal_folder.inscriptionDate ? animal_folder.inscriptionDate|date('Y-m-d') : '' }}</td>
-					<td>
-						<a href="{{ path('app_animal_folder_show', {'id': animal_folder.id}) }}">Voir</a>
-						<a href="{{ path('app_animal_folder_edit', {'id': animal_folder.id}) }}">Modifier</a>
-					</td>
-				</tr>
-			{% else %}
-				<tr>
-					<td colspan="5">Pas d'animaux enregistrés</td>
-				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
-
-	<a class="btn" href="{{ path('app_animal_folder_new') }}">Créer un nouveau dossier</a>
+<a class="btn" href="{{ path('app_animal_folder_new') }}">➕ Nouveau dossier</a>
 {% endblock %}

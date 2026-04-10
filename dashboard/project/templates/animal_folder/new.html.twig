@@ -3,9 +3,9 @@
 {% block title %}Nouveau dossier{% endblock %}
 
 {% block body %}
-    <h1>Créer un nouveau dossier</h1>
-
+<h1>Créer un nouveau dossier</h1>
+<div class="card" style="max-width: 520px;">
     {{ include('animal_folder/_form.html.twig') }}
-
-    <a class="btn" href="{{ path('app_animal_folder_index') }}">Retour à la liste</a>
+</div>
+<a class="btn btn-outline" href="{{ path('app_animal_folder_index') }}">← Retour à la liste</a>
 {% endblock %}
