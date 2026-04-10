@@ -1,0 +1,23 @@
+form button {
+  margin-bottom: 10vh;
+}
+.padd_form2 {
+  padding-bottom: 2vh;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 4vh;
+  margin-top: 10vh;
+}
+.padd_form2 label {
+  margin-left: 0.5vw;
+  margin-right: 0.5vw;
+}
+.padd_form2 input {
+  margin-left: 0.5vw;
+  margin-right: 0.5vw;
+}
+#inline {
+  width: 40vw;
+  margin-right: 8vw;
+  display: flex;
+}
