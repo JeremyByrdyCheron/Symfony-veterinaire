@@ -35,17 +35,18 @@ final class DocumentController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $appointment = $document->getAppointmentId();
-            if ($appointment) {
-                $document->setOwnerEmail($appointment->getEmail());
+            $animal = $document->getAnimalId();
+
+            if ($appointment && $animal && $appointment->getAnimalFolderId()?->getId() !== $animal->getId()) {
+                $this->addFlash('error', "L'animal sélectionné ne correspond pas au rendez-vous.");
+            } else {
+                $document->setOwnerEmail($appointment?->getEmail());
+                $entityManager->persist($document);
+                $entityManager->flush();
+                $mailService->sendDocumentMail($document);
+                $this->addFlash('success', 'Document créé et mail envoyé au client !');
+                return $this->redirectToRoute('app_document_index', [], Response::HTTP_SEE_OTHER);
             }
-
-            $entityManager->persist($document);
-            $entityManager->flush();
-
-            $mailService->sendDocumentMail($document);
-
-            $this->addFlash('success', 'Document créé et mail envoyé au client !');
-            return $this->redirectToRoute('app_document_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('document/new.html.twig', [

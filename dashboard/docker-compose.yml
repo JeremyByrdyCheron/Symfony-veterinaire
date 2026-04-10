@@ -9,6 +9,8 @@ services:
       - database
     networks:
       - symfony
+    environment:
+      PHP_INI_DATE_TIMEZONE: Europe/Paris
 
   nginx:
     image: nginx:alpine

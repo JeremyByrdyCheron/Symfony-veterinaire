@@ -36,7 +36,9 @@ class DocumentType extends AbstractType
                 'choice_label' => fn(Appointment $a) =>
                 $a->getFirstname() . ' ' . $a->getLastname()
                     . ' — ' . ($a->getAnimalFolderId()?->getName() ?? 'Aucun animal')
-                    . ' (' . $a->getEmail() . ')',
+                    . ' (' . $a->getEmail() . ')'
+                    . ' | ' . $a->getType()->value
+                    . ' | ' . $a->getWantedDate()->format('d/m/Y'),
                 'label'        => 'Rendez-vous concerné',
                 'placeholder'  => 'Sélectionner un rendez-vous',
                 'query_builder' => fn($repo) => $repo->createQueryBuilder('a')
