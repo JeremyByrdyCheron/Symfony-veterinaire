@@ -15,11 +15,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["pet"])) {
     $type = clear($_POST['reason']);
     $description = clear($_POST['info']);
     $wantedDate = $_POST['dateTime'];
+    $phoneNumber = clear($_POST['phone']);
+    $lastname = clear($_POST['name']);
+    $firstname = clear($_POST['firstname']);
 
     $wantedDateCleaned = substr(str_replace('T', ' ', $wantedDate), 0, 10);
 
-    $sql = "INSERT INTO request (type, email, animal, submittedDate, description, wantedDate) 
-            VALUES (:type, :email, :animal, :submittedDate, :description, :wantedDate)";
+    $sql = "INSERT INTO appointment (type, email, animal, 	submitted_date, description, wanted_date, phone_number, lastname, firstname) 
+            VALUES (:type, :email, :animal, :submittedDate, :description, :wantedDate, :phoneNumber, :lastname, :firstname)";
 
     try {
         $request = $pdo->prepare($sql);
@@ -29,7 +32,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["pet"])) {
             'animal' => $animal,
             'submittedDate' => $dateNow,
             'description' => $description,
-            'wantedDate' => $wantedDateCleaned
+            'wantedDate' => $wantedDateCleaned,
+            'phoneNumber' => $phoneNumber,
+            'lastname' => $lastname,
+            'firstname' => $firstname,
         ]);
         $success = "Votre demande a bien été envoyée !";
     } catch (PDOException $e) {
@@ -100,20 +106,20 @@ include "assets/utils/header.php";
         </div>
         <div class="padd_form">
             <label for="dateTime">Date et Heure : </label>
-            <input id="timeInput" type="time" min="09:00" max="18:00" step="3600">
+            <!-- <input id="timeInput" type="time" min="09:00" max="18:00" step="3600"> -->
             <input type="datetime-local" id="dateTime" name="dateTime" required />
         </div>
         <button type="submit">Envoyer</button>
         <script>
-            const input = document.getElementById("dateTime");
-            input.addEventListener("input", () => {
-                console.log()
-                if (input.value < "09:00") {
-                    input.value = "09:00";
-                }else if(input.value > "18:00"){
-                    input.value = "18:00"
-                }
-            });
+            // const input = document.getElementById("dateTime");
+            // input.addEventListener("input", () => {
+            //     console.log()
+            //     if (input.value < "09:00") {
+            //         input.value = "09:00";
+            //     }else if(input.value > "18:00"){
+            //         input.value = "18:00"
+            //     }
+            // });
         </script>
     </form>
 </section>
