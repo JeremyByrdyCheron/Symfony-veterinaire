@@ -1,99 +1,67 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Accueil
-{% endblock %}
+{% block title %}Accueil — VetCare{% endblock %}
 
 {% block body %}
+    <h1>Bonjour, {{ user.firstname }} 👋</h1>
 
-	<h1>Accueil</h1>
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-label">RDV assignés</div>
+            <div class="stat-value">{{ appointments|length }}</div>
+        </div>
+        <div class="stat-card green">
+            <div class="stat-label">Demandes en attente</div>
+            <div class="stat-value">
+                <a href="{{ path('app_notifications') }}" style="color: inherit; text-decoration: none;">
+                    Voir →
+                </a>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Planning</div>
+            <div class="stat-value">
+                <a href="{{ path('app_calendar') }}" style="color: inherit; text-decoration: none; font-size: 1rem;">
+                    Calendrier →
+                </a>
+            </div>
+        </div>
+    </div>
 
-	{% if user %}
-		<p>Bienvenue,
-			{{ user.firstname }}
-			!</p>
-		<p>
-			<a class="btn" href="{{ path('app_logout') }}">Se déconnecter</a>
-		</p>
+    <h2>Vos rendez-vous acceptés</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Type</th>
+                <th>Animal</th>
+                <th>Date souhaitée</th>
+                <th>Description</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Email</th>
+                <th>Téléphone</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for appointment in appointments %}
+                <tr>
+                    <td>{{ appointment.type.name }}</td>
+                    <td>{{ appointment.animal }}</td>
+                    <td>{{ appointment.wantedDate|date('d/m/Y') }}</td>
+                    <td>{{ appointment.description }}</td>
+                    <td>{{ appointment.lastname }}</td>
+                    <td>{{ appointment.firstname }}</td>
+                    <td>{{ appointment.email }}</td>
+                    <td>{{ appointment.phoneNumber }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="8" style="text-align:center; color: #9ab5b5; padding: 2rem;">Aucun rendez-vous pour le moment.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
-
-		<h2>
-			Vos rendez-vous
-		</h2>
-		<table class="table">
-			<thead>
-				<tr>
-					<th>
-						Type
-					</th>
-					<th>
-						Animal
-					</th>
-					<th>
-						Date d'envoi
-					</th>
-					<th>
-						Date souhaitée
-					</th>
-					<th>
-						Description
-					</th>
-					<th>
-						Nom de famille
-					</th>
-					<th>
-						Prénom
-					</th>
-					<th>
-						E-mail
-					</th>
-					<th>
-						Numéro de téléphone
-					</th>
-				</tr>
-
-			</thead>
-			{% for appointment in appointments %}
-				<tr>
-					<td>
-						{{appointment.type.name}}
-					</td>
-
-					<td>
-						{{appointment.animal}}
-					</td>
-					<td>
-						{{appointment.submittedDate|date('Y-m-d')}}
-					</td>
-					<td>
-						{{appointment.wantedDate|date('Y-m-d')}}
-					</td>
-					<td>
-						{{appointment.description}}
-					</td>
-					<td>
-						{{appointment.lastname}}
-					</td>
-					<td>
-						{{appointment.firstname}}
-					</td>
-					<td>
-						{{appointment.email}}
-					</td>
-					<td>
-						{{appointment.phoneNumber}}
-					</td>
-
-				</tr>
-			{% endfor %}
-
-		</table>
-		<a class="btn" href="{{ path('app_calendar') }}">Votre calendrier de rendez-vous</a>
-	{% else %}
-		<p>Vous n'êtes pas connecté.</p>
-		<p>
-			<a href="{{ path('app_login') }}">Se connecter</a>
-			|
-			<a href="{{ path('app_register') }}">S'inscrire</a>
-		</p>
-	{% endif %}
+    <a class="btn" href="{{ path('app_calendar') }}">📅 Voir mon calendrier</a>
+    <a class="btn" href="{{ path('app_notifications') }}" style="margin-left: 0.5rem;">🔔 Demandes en attente</a>
 {% endblock %}

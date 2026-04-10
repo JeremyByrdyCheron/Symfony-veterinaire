@@ -3,16 +3,11 @@
 {% block title %}Nouveau document{% endblock %}
 
 {% block body %}
-    <h1>Créer un nouveau document</h1>
+<h1>Créer un nouveau document</h1>
 
-{% for message in app.flashes('error') %}
-    <div class="alert alert-danger">{{ message }}</div>
-{% endfor %}
-
-{% for message in app.flashes('success') %}
-    <div class="alert alert-success">{{ message }}</div>
-{% endfor %}
+<div class="card" style="max-width: 600px;">
     {{ include('document/_form.html.twig') }}
+</div>
 
-    <a class="btn" href="{{ path('app_document_index') }}">Retour à la liste</a>
+<a class="btn btn-outline" href="{{ path('app_document_index') }}">← Retour à la liste</a>
 {% endblock %}

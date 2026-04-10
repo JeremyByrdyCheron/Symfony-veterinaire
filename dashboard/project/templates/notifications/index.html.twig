@@ -1,31 +1,43 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Demandes de rendez-vous{% endblock %}
+
 {% block body %}
-<h1>Demandes de rendez-vous</h1>
+<h1>🔔 Demandes de rendez-vous</h1>
 
-{% for request in requests %}
-<div class="card mb-3">
-    <div class="card-body">
-        <h5>{{ request.animal }} — {{ request.type.value }}</h5>
-        <p>Client : {{ request.email }}</p>
-        <p>Date souhaitée : {{ request.wantedDate|date('d/m/Y') }}</p>
-        <p>{{ request.description }}</p>
-
-        <form method="post" action="{{ path('app_notification_accept', {id: request.id}) }}" style="display:inline">
-            <button class="btn btn-success">✅ Accepter</button>
-        </form>
-
-        <form method="post" action="{{ path('app_notification_refuse', {id: request.id}) }}" style="display:inline">
-            <button class="btn btn-danger">❌ Refuser</button>
-        </form>
-
-        <form method="post" action="{{ path('app_notification_reschedule', {id: request.id}) }}" style="display:inline">
-            <input type="date" name="new_date" required>
-            <button class="btn btn-warning">📅 Décaler</button>
-        </form>
+{% if requests is empty %}
+    <div class="card" style="text-align:center; color: #9ab5b5; padding: 3rem;">
+        <p style="font-size: 2rem;">✅</p>
+        <p>Aucune demande en attente.</p>
     </div>
-</div>
 {% else %}
-    <p>Aucune demande en attente.</p>
-{% endfor %}
+    {% for request in requests %}
+    <div class="card">
+        <div class="card-header">
+            {{ request.firstname }} {{ request.lastname }} — {{ request.animal }}
+            <span class="badge badge-pending" style="float:right;">En attente</span>
+        </div>
+        <p><strong>Type :</strong> {{ request.type.value }}</p>
+        <p><strong>Email :</strong> {{ request.email }}</p>
+        <p><strong>Téléphone :</strong> {{ request.phoneNumber }}</p>
+        <p><strong>Date souhaitée :</strong> {{ request.wantedDate|date('d/m/Y') }}</p>
+        <p><strong>Description :</strong> {{ request.description }}</p>
+
+        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1rem;">
+            <form method="post" action="{{ path('app_notification_accept', {id: request.id}) }}">
+                <button class="btn btn-success">✅ Accepter</button>
+            </form>
+
+            <form method="post" action="{{ path('app_notification_refuse', {id: request.id}) }}">
+                <button class="btn btn-danger">❌ Refuser</button>
+            </form>
+
+            <form method="post" action="{{ path('app_notification_reschedule', {id: request.id}) }}" style="display: flex; gap: 0.5rem; align-items: center;">
+                <input type="date" name="new_date" required style="margin-bottom: 0;">
+                <button class="btn btn-warning">📅 Décaler</button>
+            </form>
+        </div>
+    </div>
+    {% endfor %}
+{% endif %}
 {% endblock %}
