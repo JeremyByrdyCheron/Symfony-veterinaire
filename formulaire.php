@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["pet"])) {
 
     $wantedDateCleaned = substr(str_replace('T', ' ', $wantedDate), 0, 10);
 
-    $sql = "INSERT INTO appointment (type, email, animal, 	submitted_date, description, wanted_date, phone_number, lastname, firstname) 
+    $sql = "INSERT INTO appointment (type, email, animal, submitted_date, description, wanted_date, phone_number, lastname, firstname) 
             VALUES (:type, :email, :animal, :submittedDate, :description, :wantedDate, :phoneNumber, :lastname, :firstname)";
 
     try {
