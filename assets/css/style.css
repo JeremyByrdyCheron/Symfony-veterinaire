@@ -4,7 +4,7 @@
 html {
   scroll-behavior: smooth;
 }
-p,ul,table {
+p,ul,table, label,select,textarea {
   font-family: "Quicksand";
   font-size: 18px;
   color: #005b71;
