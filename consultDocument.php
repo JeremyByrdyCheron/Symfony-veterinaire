@@ -12,7 +12,7 @@ if (!$token) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['code'])) {
     $codeSaisi = trim($_POST['code']);
 
-    
+
     $stmt = $pdo->prepare("SELECT * FROM document WHERE token = :token LIMIT 1");
     $stmt->execute(['token' => $token]);
     $doc = $stmt->fetch();
@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['code'])) {
     if ($doc && $doc['code'] === $codeSaisi) {
 
         $_SESSION['access_' . $token] = true;
-        
+
         header("Location: " . $_SERVER['PHP_SELF'] . "?token=" . urlencode($token));
         exit;
     } else {
@@ -30,11 +30,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['code'])) {
 
 
 if (isset($_SESSION['access_' . $token]) && $_SESSION['access_' . $token] === true) {
-    
-    $stmt = $pdo->prepare("SELECT fichier FROM document WHERE token = ? LIMIT 1");
-    $stmt->execute([$token]);
-    $doc = $stmt->fetch();
 
+    $stmt = $pdo->prepare("SELECT fichier FROM document WHERE token = :token LIMIT 1");
+    $stmt->execute(['token' => $token]);
+    $doc = $stmt->fetch();
     if ($doc && file_exists($doc['fichier'])) {
         ob_clean();
         header("Content-Type: application/pdf");
